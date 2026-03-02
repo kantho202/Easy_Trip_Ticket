@@ -35,13 +35,13 @@ const AboutSection = () => {
                                 alt="Online Ticket Booking"
                                 className="w-full h-96 md:h-72 object-cover"
                             />
-                            <div className="absolute bottom-5 right-5  p-6 rounded-2xl shadow-xl flex items-center gap-4 animate-float">
+                            <div className="absolute bottom-5 right-5 bg-white p-6 rounded-2xl shadow-xl flex items-center gap-4 animate-float">
                                 <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl flex items-center justify-center text-2xl">
                                     <FaRocket />
                                 </div>
-                                <div>
-                                    <div className="text-2xl font-bold text-gray-800">20K+</div>
-                                    <div className="text-sm text-gray-600">Tickets Booked</div>
+                                <div className=''>
+                                    <div className="text-2xl font-bold text-gray-700">20K+</div>
+                                    <div className="text-sm text-gray-700">Tickets Booked</div>
                                 </div>
                             </div>
                         </div>
@@ -52,10 +52,10 @@ const AboutSection = () => {
                                     key={index}
                                     className="border-gray-200 border-2 p-6 md:p-4 rounded-xl text-center transition-all duration-300 hover:bg-white hover:shadow-lg hover:-translate-y-1"
                                 >
-                                    <div className="text-3xl md:text-2xl text-orange-500 mb-2">
+                                    <div className="text-3xl md:text-2xl flex justify-center text-orange-500 mb-2">
                                         {item.icon}
                                     </div>
-                                    <div className="text-2xl md:text-xl font-bold text-gray-800 mb-1">
+                                    <div className="text-2xl md:text-xl font-bold  mb-1">
                                         {item.number}
                                     </div>
                                     <div className="text-xs text-gray-600">
@@ -71,23 +71,23 @@ const AboutSection = () => {
                         <div className="inline-block px-5 py-2 rounded-full text-sm font-semibold mb-6">
                             About Us
                         </div>
-                        <h2 className="text-4xl md:text-3xl font-bold text-gray-800 mb-6 leading-tight">
+                        <h2 className="text-4xl md:text-3xl font-bold  mb-6 leading-tight">
                             Your Trusted Partner for Online Ticket Booking
                         </h2>
-                        <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                        <p className="text-lg  leading-relaxed mb-6">
                             We are a leading online ticket booking platform dedicated to making your travel 
                             planning seamless and hassle-free. With years of experience in the industry, 
                             we provide a reliable and user-friendly platform for booking tickets to various 
                             destinations.
                         </p>
-                        <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                        <p className="text-lg  leading-relaxed mb-6">
                             Our mission is to revolutionize the way people book tickets by offering a 
                             convenient, secure, and efficient booking experience. We partner with trusted 
                             service providers to ensure you get the best deals and quality service.
                         </p>
 
                         <div className="my-8">
-                            <h3 className="text-2xl font-semibold text-gray-800 mb-6">
+                            <h3 className="text-2xl font-semibold  mb-6">
                                 Why Choose Our Platform?
                             </h3>
                             <div className="grid gap-4">
@@ -96,7 +96,7 @@ const AboutSection = () => {
                                         <div className="text-green-500 text-xl flex-shrink-0">
                                             <FaCheckCircle />
                                         </div>
-                                        <span className="text-base text-gray-700">
+                                        <span className="text-base ">
                                             {feature}
                                         </span>
                                     </div>
