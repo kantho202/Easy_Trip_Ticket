@@ -213,7 +213,7 @@ const MyAddedTickets = () => {
                     <p className="text-gray-600 text-base">Start by adding your first ticket to get bookings</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-3 gap-8 lg:grid-cols-3 md:grid-cols-1">
+                <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2">
                     {tickets.map(ticket => {
                         const TransportIcon = transportIcons[ticket.transport] || FaBus;
                         return (
