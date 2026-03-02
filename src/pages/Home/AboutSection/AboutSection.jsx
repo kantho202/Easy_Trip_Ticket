@@ -50,7 +50,7 @@ const AboutSection = () => {
                             {achievements.map((item, index) => (
                                 <div 
                                     key={index}
-                                    className="border-gray-200 border-2 p-6 md:p-4 rounded-xl text-center transition-all duration-300 hover:bg-white hover:shadow-lg hover:-translate-y-1"
+                                    className="border-gray-200 border-2 p-6 md:p-4 rounded-xl text-center transition-all duration-300  hover:shadow-lg hover:-translate-y-1"
                                 >
                                     <div className="text-3xl md:text-2xl flex justify-center text-orange-500 mb-2">
                                         {item.icon}
@@ -58,7 +58,7 @@ const AboutSection = () => {
                                     <div className="text-2xl md:text-xl font-bold  mb-1">
                                         {item.number}
                                     </div>
-                                    <div className="text-xs text-gray-600">
+                                    <div className="text-xs font-semibold text-gray-400">
                                         {item.label}
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@ const AboutSection = () => {
                         <div className="inline-block px-5 py-2 rounded-full text-sm font-semibold mb-6">
                             About Us
                         </div>
-                        <h2 className="text-4xl md:text-3xl font-bold  mb-6 leading-tight">
+                        <h2 className="text-4xl md:text-3xl font-bold  mb-6 leading-tight ">
                             Your Trusted Partner for Online Ticket Booking
                         </h2>
                         <p className="text-lg  leading-relaxed mb-6">
@@ -107,13 +107,13 @@ const AboutSection = () => {
                         <div className="flex gap-4 mt-8 flex-col sm:flex-row">
                             <a 
                                 href="/all-tickets"
-                                className="inline-block px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 text-center"
+                                className="inline-block px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 text-center"
                             >
                                 Book Now
                             </a>
                             <a 
                                 href="/contact"
-                                className="inline-block px-8 py-4  text-orange-500 font-semibold border-2 border-orange-500 rounded-xl transition-all duration-300 hover:bg-orange-500 hover:text-white hover:-translate-y-1 text-center"
+                                className="inline-block px-6 py-3  text-orange-500 font-semibold border-2 border-orange-500 rounded-xl transition-all duration-300 hover:bg-orange-500 hover:text-white hover:-translate-y-1 text-center"
                             >
                                 Contact Us
                             </a>
