@@ -95,7 +95,7 @@ const Contact = () => {
                     <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                         Get In Touch
                     </h1>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                    <p className="text-lg  max-w-2xl mx-auto">
                         Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
                     </p>
                 </div>
@@ -110,7 +110,7 @@ const Contact = () => {
                             <div className={`w-16 h-16 ${info.color} rounded-full flex items-center justify-center text-2xl mx-auto mb-4 transition-all duration-300 ${info.hoverColor}`}>
                                 {info.icon}
                             </div>
-                            <h3 className="text-lg font-semibold text-gray-800 mb-3">
+                            <h3 className="text-lg font-semibold  mb-3">
                                 {info.title}
                             </h3>
                             {info.details.map((detail, idx) => (
