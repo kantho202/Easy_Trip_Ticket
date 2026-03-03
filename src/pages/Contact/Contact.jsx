@@ -126,13 +126,13 @@ const Contact = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Contact Form */}
                     <div className=" p-8 rounded-2xl shadow-lg">
-                        <h2 className="text-3xl font-bold text-gray-800 mb-6">
+                        <h2 className="text-3xl font-bold  mb-6">
                             Send Us a Message
                         </h2>
                         <form onSubmit={handleSubmit} className="space-y-5">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    <label className="block text-sm font-semibold  mb-2">
                                         Your Name *
                                     </label>
                                     <input
@@ -146,7 +146,7 @@ const Contact = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    <label className="block text-sm font-semibold  mb-2">
                                         Email Address *
                                     </label>
                                     <input
@@ -163,7 +163,7 @@ const Contact = () => {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    <label className="block text-sm font-semibold  mb-2">
                                         Phone Number
                                     </label>
                                     <input
@@ -176,7 +176,7 @@ const Contact = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                    <label className="block text-sm font-semibold  mb-2">
                                         Subject *
                                     </label>
                                     <input
@@ -192,7 +192,7 @@ const Contact = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                <label className="block text-sm font-semibold  mb-2">
                                     Message *
                                 </label>
                                 <textarea
@@ -217,7 +217,7 @@ const Contact = () => {
 
                     {/* Map Section */}
                     <div className=" p-8 rounded-2xl shadow-lg">
-                        <h2 className="text-3xl font-bold text-gray-800 mb-6">
+                        <h2 className="text-3xl font-bold  mb-6">
                             Find Us Here
                         </h2>
                         <div className="w-full h-80 rounded-xl overflow-hidden mb-6">
@@ -235,7 +235,7 @@ const Contact = () => {
 
                         {/* Social Links */}
                         <div className="text-center">
-                            <h3 className="text-xl font-semibold text-gray-800 mb-4">
+                            <h3 className="text-xl font-semibold  mb-4">
                                 Follow Us
                             </h3>
                             <div className="flex justify-center gap-4">
