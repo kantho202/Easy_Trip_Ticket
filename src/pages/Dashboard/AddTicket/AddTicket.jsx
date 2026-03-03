@@ -162,9 +162,9 @@ const AddTicket = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 p-8 md:p-4 font-sans">
+        <div className="min-h-screen  p-8 md:p-4 font-sans">
             {/* Header Section */}
-            <div className="flex items-center gap-6 mb-12 p-8 bg-white rounded-3xl shadow-md border border-gray-100 md:flex-col md:text-center md:gap-4 md:p-6">
+            <div className="flex items-center gap-6 mb-12 p-8 rounded-3xl shadow-md border border-gray-100 md:flex-col md:text-center md:gap-4 md:p-6">
                 <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-4xl text-white shadow-xl md:w-15 md:h-15 md:text-3xl">
                     <IoTicket />
                 </div>
@@ -179,7 +179,7 @@ const AddTicket = () => {
             </div>
 
             {/* Form Container */}
-            <div className="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
+            <div className=" rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
                 <form onSubmit={handleSubmit(handleAddTicket)} className="p-12 md:p-6">
                     {/* Personal Information Section */}
                     <div className="mb-12">
@@ -202,7 +202,7 @@ const AddTicket = () => {
                                     readOnly
                                     {...register('name', { required: 'Name is required' })}
                                     placeholder="Enter your full name"
-                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all bg-white focus:outline-none focus:border-orange-500 focus:bg-white focus:shadow-orange read-only:bg-gray-50 read-only:text-gray-600 read-only:cursor-not-allowed placeholder:text-gray-400"
+                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all focus:outline-none focus:border-orange-500 focus:bg-white focus:shadow-orange read-only:bg-gray-50 read-only:text-gray-600 read-only:cursor-not-allowed placeholder:text-gray-400"
                                 />
                                 {errors.name && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">{errors.name.message}</span>}
                             </div>
@@ -218,7 +218,7 @@ const AddTicket = () => {
                                     readOnly
                                     {...register('email', { required: 'Email is required' })}
                                     placeholder="Enter your email"
-                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all bg-white focus:outline-none focus:border-orange-500 focus:bg-white focus:shadow-orange read-only:bg-gray-50 read-only:text-gray-600 read-only:cursor-not-allowed placeholder:text-gray-400"
+                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all focus:outline-none focus:border-orange-500 focus:bg-white focus:shadow-orange read-only:bg-gray-50 read-only:text-gray-600 read-only:cursor-not-allowed placeholder:text-gray-400"
                                 />
                                 {errors.email && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">{errors.email.message}</span>}
                             </div>
@@ -437,14 +437,14 @@ const AddTicket = () => {
                                     />
                                     <label 
                                         htmlFor={perk.name}
-                                        className="flex items-center gap-4 px-4 py-4 border-2 border-gray-200 rounded-xl cursor-pointer transition-all bg-white hover:border-orange-500 hover:bg-orange-50 peer-checked:bg-gradient-to-br peer-checked:from-orange-500 peer-checked:to-orange-600 peer-checked:text-white peer-checked:border-orange-500 peer-checked:-translate-y-1 peer-checked:shadow-xl"
+                                        className="flex items-center gap-4 px-4 py-4 border-2 border-gray-200 rounded-xl cursor-pointer transition-all  hover:border-orange-500  peer-checked:bg-gradient-to-br peer-checked:from-orange-500 peer-checked:to-orange-600 peer-checked:text-white peer-checked:border-orange-500 peer-checked:-translate-y-1 peer-checked:shadow-xl"
                                     >
                                         <div className="w-10 h-10 bg-gray-200 rounded-lg flex items-center justify-center text-xl text-gray-600 transition-all peer-checked:text-white peer-checked:bg-white/20">
                                             <perk.icon />
                                         </div>
                                         <div className="flex-1">
-                                            <div className="font-semibold text-gray-700 mb-1 peer-checked:text-white">{perk.name}</div>
-                                            <div className="text-xs text-gray-600 peer-checked:text-white/90">{perk.label}</div>
+                                            <div className="font-semibold  mb-1 peer-checked:text-white">{perk.name}</div>
+                                            <div className="text-xs  peer-checked:text-white/90">{perk.label}</div>
                                         </div>
                                     </label>
                                 </div>
