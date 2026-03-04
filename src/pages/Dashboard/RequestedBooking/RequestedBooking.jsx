@@ -401,14 +401,14 @@ const RequestedBooking = () => {
                     <button 
                         onClick={handleRefresh} 
                         disabled={isFetching}
-                        className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-xl text-gray-700 font-medium cursor-pointer transition-all hover:bg-gray-50 hover:border-orange-500 hover:text-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="flex items-center gap-2 px-6 py-3  border border-gray-200 rounded-xl  font-medium cursor-pointer transition-all hover:bg-gray-50 hover:border-orange-500 hover:text-orange-500 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                         <FiRefreshCw className={isFetching ? 'animate-spin' : ''} />
                         {isFetching ? 'Refreshing...' : 'Refresh'}
                     </button>
                     <button 
                         onClick={handleExportPDF}
-                        className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-xl text-gray-700 font-medium cursor-pointer transition-all hover:bg-gray-50 hover:border-orange-500 hover:text-orange-500"
+                        className="flex items-center gap-2 px-6 py-3  border border-gray-200 rounded-xl  font-medium cursor-pointer transition-all hover:bg-gray-50 hover:border-orange-500 hover:text-orange-500"
                     >
                         <FaDownload />
                         Export
@@ -418,39 +418,39 @@ const RequestedBooking = () => {
 
             {/* Stats Overview */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg flex items-center gap-4">
+                <div className=" p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg flex items-center gap-4">
                     <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center text-orange-500 text-xl flex-shrink-0">
                         <FaTicket />
                     </div>
                     <div>
-                        <div className="text-3xl font-bold text-gray-900">{bookings.length}</div>
+                        <div className="text-3xl font-bold ">{bookings.length}</div>
                         <div className="text-gray-500 text-sm font-medium">Total Requests</div>
                     </div>
                 </div>
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg flex items-center gap-4">
+                <div className=" p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg flex items-center gap-4">
                     <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-green-500 text-xl flex-shrink-0">
                         <FaCheck />
                     </div>
                     <div>
-                        <div className="text-3xl font-bold text-gray-900">{bookings.filter(b => b.status === 'accepted').length}</div>
+                        <div className="text-3xl font-bold ">{bookings.filter(b => b.status === 'accepted').length}</div>
                         <div className="text-gray-500 text-sm font-medium">Accepted</div>
                     </div>
                 </div>
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg flex items-center gap-4">
+                <div className=" p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg flex items-center gap-4">
                     <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center text-red-500 text-xl flex-shrink-0">
                         <FaTimes />
                     </div>
                     <div>
-                        <div className="text-3xl font-bold text-gray-900">{bookings.filter(b => b.status === 'rejected').length}</div>
+                        <div className="text-3xl font-bold ">{bookings.filter(b => b.status === 'rejected').length}</div>
                         <div className="text-gray-500 text-sm font-medium">Rejected</div>
                     </div>
                 </div>
-                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg flex items-center gap-4">
+                <div className=" p-6 rounded-2xl border border-gray-100 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg flex items-center gap-4">
                     <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-amber-500 text-xl flex-shrink-0">
                         <FiClock />
                     </div>
                     <div>
-                        <div className="text-3xl font-bold text-gray-900">{bookings.filter(b => !b.status || b.status === 'pending').length}</div>
+                        <div className="text-3xl font-bold ">{bookings.filter(b => !b.status || b.status === 'pending').length}</div>
                         <div className="text-gray-500 text-sm font-medium">Pending</div>
                     </div>
                 </div>
@@ -473,7 +473,7 @@ const RequestedBooking = () => {
                 
                 {/* DaisyUI Status Filter Select */}
                 <select 
-                    className="select select-bordered w-full md:w-auto md:max-w-xs"
+                    className="select select-bordered focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all w-full md:w-auto md:max-w-xs"
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
                 >
@@ -485,25 +485,25 @@ const RequestedBooking = () => {
             </div>
 
             {/* Desktop Table View */}
-            <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 mb-8 hidden lg:block">
+            <div className=" rounded-2xl overflow-hidden shadow-sm border border-gray-100 mb-8 hidden lg:block">
                 <div className="overflow-x-auto">
                     <table className="w-full border-collapse min-w-[800px]">
-                        <thead className="bg-gray-50">
+                        <thead className="bg-gradient-to-br from-orange-500 to-orange-600 ">
                             <tr>
-                                <th className="px-6 py-4 text-left font-semibold text-gray-700 text-xs uppercase tracking-wider whitespace-nowrap">#</th>
-                                <th className="px-6 py-4 text-left font-semibold text-gray-700 text-xs uppercase tracking-wider whitespace-nowrap">Customer</th>
-                                <th className="px-6 py-4 text-left font-semibold text-gray-700 text-xs uppercase tracking-wider whitespace-nowrap">Ticket Details</th>
-                                <th className="px-6 py-4 text-left font-semibold text-gray-700 text-xs uppercase tracking-wider whitespace-nowrap">Quantity</th>
-                                <th className="px-6 py-4 text-left font-semibold text-gray-700 text-xs uppercase tracking-wider whitespace-nowrap">Amount</th>
-                                <th className="px-6 py-4 text-left font-semibold text-gray-700 text-xs uppercase tracking-wider whitespace-nowrap">Status</th>
-                                <th className="px-6 py-4 text-left font-semibold text-gray-700 text-xs uppercase tracking-wider whitespace-nowrap">Actions</th>
+                                <th className="px-6 py-4 text-left font-semibold text-white  text-xs uppercase tracking-wider whitespace-nowrap">#</th>
+                                <th className="px-6 py-4 text-left font-semibold text-white  text-xs uppercase tracking-wider whitespace-nowrap">Customer</th>
+                                <th className="px-6 py-4 text-left font-semibold text-white  text-xs uppercase tracking-wider whitespace-nowrap">Ticket Details</th>
+                                <th className="px-6 py-4 text-left font-semibold text-white  text-xs uppercase tracking-wider whitespace-nowrap">Quantity</th>
+                                <th className="px-6 py-4 text-left font-semibold text-white  text-xs uppercase tracking-wider whitespace-nowrap">Amount</th>
+                                <th className="px-6 py-4 text-left font-semibold text-white  text-xs uppercase tracking-wider whitespace-nowrap">Status</th>
+                                <th className="px-6 py-4 text-left font-semibold text-white  text-xs uppercase tracking-wider whitespace-nowrap">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {filteredBookings.map((booking, i) => (
-                                <tr key={booking._id} className="hover:bg-gray-50 transition-colors">
+                                <tr key={booking._id} className="hover:bg-primary/40  transition-colors">
                                     <td className="px-6 py-4 border-b border-gray-100">
-                                        <span className="font-semibold text-gray-500 bg-gray-50 px-2 py-1 rounded-md text-xs whitespace-nowrap">
+                                        <span className="font-semibold text-white  bg-gradient-to-br from-orange-500 to-orange-600  px-2 py-1 rounded-md text-xs whitespace-nowrap">
                                             #{i + 1}
                                         </span>
                                     </td>
@@ -513,10 +513,10 @@ const RequestedBooking = () => {
                                                 {booking.name.charAt(0).toUpperCase()}
                                             </div>
                                             <div className="min-w-0 flex-1">
-                                                <div className="font-semibold text-gray-900 whitespace-nowrap overflow-hidden text-ellipsis">
+                                                <div className="font-semibold  whitespace-nowrap overflow-hidden text-ellipsis">
                                                     {booking.name}
                                                 </div>
-                                                <div className="text-xs text-gray-500 whitespace-nowrap overflow-hidden text-ellipsis">
+                                                <div className="text-xs  whitespace-nowrap overflow-hidden text-ellipsis">
                                                     {booking.email}
                                                 </div>
                                             </div>
@@ -524,7 +524,7 @@ const RequestedBooking = () => {
                                     </td>
                                     <td className="px-6 py-4 border-b border-gray-100">
                                         <div className="min-w-[200px]">
-                                            <div className="font-semibold text-gray-900 mb-1 whitespace-nowrap overflow-hidden text-ellipsis">
+                                            <div className="font-semibold  mb-1 whitespace-nowrap overflow-hidden text-ellipsis">
                                                 {booking.ticket_title}
                                             </div>
                                             <div className="flex items-center gap-1 text-xs text-gray-500 whitespace-nowrap">
@@ -540,7 +540,7 @@ const RequestedBooking = () => {
                                     </td>
                                     <td className="px-6 py-4 border-b border-gray-100">
                                         <span className="font-bold text-green-600 text-lg whitespace-nowrap">
-                                            ৳{booking.total_price?.toLocaleString()}
+                                            ${booking.total_price?.toLocaleString()}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 border-b border-gray-100">
@@ -571,7 +571,7 @@ const RequestedBooking = () => {
                                                 onClick={() => handleOpenViewModal(booking)}
                                                 className="flex items-center justify-center w-8 h-8 bg-gray-100 text-gray-600 rounded-lg cursor-pointer transition-all hover:bg-gray-200 hover:text-gray-800 flex-shrink-0"
                                             >
-                                                <FiEye />
+                                                <FiEye title='details' />
                                             </button>
                                         )}
                                     </td>
@@ -585,7 +585,7 @@ const RequestedBooking = () => {
             {/* Mobile Card View */}
             <div className="lg:hidden space-y-4">
                 {filteredBookings.map((booking, i) => (
-                    <div key={booking._id} className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div key={booking._id} className=" rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                         {/* Card Header */}
                         <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-50 to-orange-100 border-b border-orange-200">
                             <span className="font-bold text-orange-600 bg-white px-3 py-1 rounded-full text-sm">
@@ -602,7 +602,7 @@ const RequestedBooking = () => {
                                     <FaTicket />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <h3 className="font-bold text-gray-900 text-lg mb-1 break-words">
+                                    <h3 className="font-bold  text-lg mb-1 break-words">
                                         {booking.ticket_title}
                                     </h3>
                                     <p className="text-xs text-gray-500">
@@ -620,7 +620,7 @@ const RequestedBooking = () => {
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-xs text-gray-500 mb-0.5">Customer</p>
-                                        <p className="font-semibold text-gray-900 truncate">{booking.name}</p>
+                                        <p className="font-semibold  truncate">{booking.name}</p>
                                     </div>
                                 </div>
 
@@ -631,7 +631,7 @@ const RequestedBooking = () => {
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-xs text-gray-500 mb-0.5">Email</p>
-                                        <p className="font-semibold text-gray-900 truncate">{booking.email}</p>
+                                        <p className="font-semibold  truncate">{booking.email}</p>
                                     </div>
                                 </div>
 
@@ -643,7 +643,7 @@ const RequestedBooking = () => {
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <p className="text-xs text-gray-500 mb-0.5">Quantity</p>
-                                            <p className="font-semibold text-gray-900">{booking.bookingQuantity}</p>
+                                            <p className="font-semibold ">{booking.bookingQuantity}</p>
                                         </div>
                                     </div>
 

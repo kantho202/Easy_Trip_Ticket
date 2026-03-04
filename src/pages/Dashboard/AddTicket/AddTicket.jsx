@@ -202,7 +202,7 @@ const AddTicket = () => {
                                     readOnly
                                     {...register('name', { required: 'Name is required' })}
                                     placeholder="Enter your full name"
-                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all focus:outline-none focus:border-orange-500 focus:bg-white focus:shadow-orange read-only:bg-gray-50 read-only:text-gray-600 read-only:cursor-not-allowed placeholder:text-gray-400"
+                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all focus:outline-none focus:border-orange-500 focus:shadow-orange read-only:bg-gray-50 read-only:text-gray-600 read-only:cursor-not-allowed placeholder:text-gray-400"
                                 />
                                 {errors.name && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">{errors.name.message}</span>}
                             </div>
@@ -218,7 +218,7 @@ const AddTicket = () => {
                                     readOnly
                                     {...register('email', { required: 'Email is required' })}
                                     placeholder="Enter your email"
-                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all focus:outline-none focus:border-orange-500 focus:bg-white focus:shadow-orange read-only:bg-gray-50 read-only:text-gray-600 read-only:cursor-not-allowed placeholder:text-gray-400"
+                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all focus:outline-none focus:border-orange-500 focus:shadow-orange read-only:bg-gray-50 read-only:text-gray-600 read-only:cursor-not-allowed placeholder:text-gray-400"
                                 />
                                 {errors.email && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">{errors.email.message}</span>}
                             </div>
@@ -231,7 +231,7 @@ const AddTicket = () => {
                             <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-2xl text-white shadow-lg">
                                 <IoTicket />
                             </div>
-                            <h2 className="text-2xl font-semibold text-gray-800 m-0">Ticket Details</h2>
+                            <h2 className="text-2xl font-semibold  m-0">Ticket Details</h2>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6">
@@ -244,7 +244,7 @@ const AddTicket = () => {
                                     type="text"
                                     {...register('ticketTitle', { required: 'Ticket title is required' })}
                                     placeholder="Enter descriptive ticket title"
-                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all bg-white focus:outline-none focus:border-orange-500 focus:bg-white focus:shadow-orange placeholder:text-gray-400"
+                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all focus:outline-none focus:border-orange-500 focus:shadow-orange placeholder:text-gray-400"
                                 />
                                 {errors.ticketTitle && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">{errors.ticketTitle.message}</span>}
                             </div>
@@ -263,7 +263,7 @@ const AddTicket = () => {
                                         min: { value: 1, message: 'Price must be greater than 0' }
                                     })}
                                     placeholder="Enter ticket price"
-                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all bg-white focus:outline-none focus:border-orange-500 focus:bg-white focus:shadow-orange placeholder:text-gray-400"
+                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all focus:outline-none focus:border-orange-500 focus:shadow-orange placeholder:text-gray-400"
                                 />
                                 {errors.price && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">{errors.price.message}</span>}
                             </div>
@@ -281,7 +281,7 @@ const AddTicket = () => {
                                         min: { value: 1, message: 'Quantity must be at least 1' }
                                     })}
                                     placeholder="Available tickets"
-                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all bg-white focus:outline-none focus:border-orange-500 focus:bg-white focus:shadow-orange placeholder:text-gray-400"
+                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all focus:outline-none focus:border-orange-500 focus:shadow-orange placeholder:text-gray-400"
                                 />
                                 {errors.ticketQuantity && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">{errors.ticketQuantity.message}</span>}
                             </div>
@@ -294,7 +294,7 @@ const AddTicket = () => {
                             <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-2xl text-white shadow-lg">
                                 <IoLocation />
                             </div>
-                            <h2 className="text-2xl font-semibold text-gray-800 m-0">Travel Information</h2>
+                            <h2 className="text-2xl font-semibold  m-0">Travel Information</h2>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6">
@@ -303,15 +303,12 @@ const AddTicket = () => {
                                     <IoLocation className="text-orange-500 text-base" />
                                     From
                                 </label>
-                                <select
+                                <input
                                     {...register('from', { required: 'Departure location is required' })}
-                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all bg-white cursor-pointer focus:outline-none focus:border-orange-500 focus:bg-white focus:shadow-orange"
-                                >
-                                    <option value="">Select departure location</option>
-                                    {regions.map((region, i) => (
-                                        <option key={i} value={region}>{region}</option>
-                                    ))}
-                                </select>
+                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all cursor-pointer focus:outline-none focus:border-orange-500 focus:shadow-orange"
+                               />
+                                    
+                                
                                 {errors.from && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">{errors.from.message}</span>}
                             </div>
 
@@ -320,15 +317,12 @@ const AddTicket = () => {
                                     <IoLocation className="text-orange-500 text-base" />
                                     To
                                 </label>
-                                <select
+                                <input
                                     {...register('to', { required: 'Destination is required' })}
-                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all bg-white cursor-pointer focus:outline-none focus:border-orange-500 focus:bg-white focus:shadow-orange"
-                                >
-                                    <option value="">Select destination</option>
-                                    {regions.map((region, i) => (
-                                        <option key={i} value={region}>{region}</option>
-                                    ))}
-                                </select>
+                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all cursor-pointer focus:outline-none focus:border-orange-500 focus:shadow-orange"
+                                />
+                                   
+                                
                                 {errors.to && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">{errors.to.message}</span>}
                             </div>
 
@@ -340,7 +334,7 @@ const AddTicket = () => {
                                 <input
                                     type="datetime-local"
                                     {...register('departureDateTime', { required: 'Departure date and time is required' })}
-                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all bg-white focus:outline-none focus:border-orange-500 focus:bg-white focus:shadow-orange"
+                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all focus:outline-none focus:border-orange-500 focus:shadow-orange"
                                 />
                                 {errors.departureDateTime && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">{errors.departureDateTime.message}</span>}
                             </div>
@@ -359,7 +353,7 @@ const AddTicket = () => {
                                             />
                                             <label 
                                                 htmlFor={transport.value}
-                                                className="flex flex-col items-center gap-2 px-4 py-4 border-2 border-gray-200 rounded-xl cursor-pointer transition-all bg-white text-sm font-medium hover:border-orange-500 hover:bg-orange-50 peer-checked:bg-gradient-to-br peer-checked:from-orange-500 peer-checked:to-orange-600 peer-checked:text-white peer-checked:border-orange-500 peer-checked:-translate-y-1 peer-checked:shadow-xl"
+                                                className="flex flex-col items-center gap-2 px-4 py-4 border-2 border-gray-200 rounded-xl cursor-pointer transition-all text-sm font-medium hover:border-orange-500  peer-checked:bg-gradient-to-br peer-checked:from-orange-500 peer-checked:to-orange-600 peer-checked:text-white peer-checked:border-orange-500 peer-checked:-translate-y-1 peer-checked:shadow-xl"
                                             >
                                                 <transport.icon className="text-2xl" />
                                                 {transport.label}
