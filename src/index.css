@@ -1,13 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-/* logo */
-@import "tailwindcss";
-@plugin "daisyui" {
-  themes: winter --default, night --prefersdark;
-}
-
-@custom-variant dark (&:where([data-theme=night], [data-theme=night] *));
-
 
 @import "tailwindcss";
 @plugin "daisyui";
@@ -15,22 +7,20 @@
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  /* --color-primary: orange; */
   --color-primary: #ff8c42;
   --color-secondary: teal;
-  --color-base-100:#faf7f5;
-   /* --linear-gradient(135deg, #dbeafe, #ffedd5, #fce7f3); */
-   --color-base-content: #1f2937;
+  --color-base-100: #faf7f5;
+  --color-base-content: #1f2937;
 }
+
 @plugin "daisyui/theme" {
   name: "dark";
-  default: true;
-  /* --color-primary: orange; */
   --color-primary: #ff8c42;
   --color-secondary: skyblue;
-   --color-base-100: #000000;
-   --color-base-content: #ffffff;
-  
+  --color-base-100: #000000;
+  --color-base-200: #0a0a0a;
+  --color-base-300: #1a1a1a;
+  --color-base-content: #ffffff;
 }
 
 * {
@@ -39,8 +29,7 @@
   font-style: normal;
 }
 
-
- a.active{
-   @apply underline decoration-3  underline-offset-7 decoration-primary ;
+a.active {
+  @apply underline decoration-3 underline-offset-7 decoration-primary;
 }
 
