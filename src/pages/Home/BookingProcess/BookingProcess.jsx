@@ -67,12 +67,12 @@ const BookingProcess = () => {
                     ))}
                 </div>
 
-                <div className="text-center p-12 md:p-8  rounded-3xl shadow-lg">
+                <div className="text-center p-12 md:p-8  rounded-3xl ">
                     <h3 className="text-3xl md:text-2xl font-bold  mb-6">
                         Ready to Book Your Ticket?
                     </h3>
                     <a 
-                        href="/all-tickets"
+                        href="/alltickets"
                         className="inline-block px-10 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold text-lg rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1"
                     >
                         Browse All Tickets

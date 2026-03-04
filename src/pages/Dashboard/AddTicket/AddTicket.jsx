@@ -164,15 +164,15 @@ const AddTicket = () => {
     return (
         <div className="min-h-screen  p-8 md:p-4 font-sans">
             {/* Header Section */}
-            <div className="flex items-center gap-6 mb-12 p-8 rounded-3xl shadow-md border border-gray-100 md:flex-col md:text-center md:gap-4 md:p-6">
-                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-4xl text-white shadow-xl md:w-15 md:h-15 md:text-3xl">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-12 p-8 rounded-3xl shadow-md border border-gray-100">
+                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-4xl text-white shadow-xl flex-shrink-0">
                     <IoTicket />
                 </div>
                 <div className="flex-1">
-                    <h1 className="text-5xl font-bold text-gray-800 mb-2 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent md:text-3xl">
+                    <h1 className="text-5xl md:text-3xl font-bold text-gray-800 mb-2 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                         Add New Ticket
                     </h1>
-                    <p className="text-xl text-gray-600 m-0 md:text-base">
+                    <p className="text-xl md:text-base text-gray-600 m-0">
                         Create a new travel ticket for your customers
                     </p>
                 </div>
@@ -187,12 +187,12 @@ const AddTicket = () => {
                             <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-2xl text-white shadow-lg">
                                 <FaUser />
                             </div>
-                            <h2 className="text-2xl font-semibold text-gray-800 m-0">Personal Information</h2>
+                            <h2 className="text-2xl font-semibold  m-0">Personal Information</h2>
                         </div>
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6">
                             <div className="flex flex-col gap-2">
-                                <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm mb-2">
+                                <label className="flex items-center gap-2 font-semibold  text-sm mb-2">
                                     <FaUser className="text-orange-500 text-base" />
                                     Full Name
                                 </label>
@@ -208,7 +208,7 @@ const AddTicket = () => {
                             </div>
 
                             <div className="flex flex-col gap-2">
-                                <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm mb-2">
+                                <label className="flex items-center gap-2 font-semibold  text-sm mb-2">
                                     <FaEnvelope className="text-orange-500 text-base" />
                                     Email Address
                                 </label>
@@ -236,7 +236,7 @@ const AddTicket = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6">
                             <div className="flex flex-col gap-2 md:col-span-2">
-                                <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm mb-2">
+                                <label className="flex items-center gap-2 font-semibold  text-sm mb-2">
                                     <IoTicket className="text-orange-500 text-base" />
                                     Ticket Title
                                 </label>
@@ -250,7 +250,7 @@ const AddTicket = () => {
                             </div>
 
                             <div className="flex flex-col gap-2">
-                                <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm mb-2">
+                                <label className="flex items-center gap-2 font-semibold  text-sm mb-2">
                                     <IoPricetag className="text-orange-500 text-base" />
                                     Price (৳)
                                 </label>
@@ -269,7 +269,7 @@ const AddTicket = () => {
                             </div>
 
                             <div className="flex flex-col gap-2">
-                                <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm mb-2">
+                                <label className="flex items-center gap-2 font-semibold  text-sm mb-2">
                                     <IoTicket className="text-orange-500 text-base" />
                                     Ticket Quantity
                                 </label>
@@ -299,7 +299,7 @@ const AddTicket = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6">
                             <div className="flex flex-col gap-2">
-                                <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm mb-2">
+                                <label className="flex items-center gap-2 font-semibold  text-sm mb-2">
                                     <IoLocation className="text-orange-500 text-base" />
                                     From
                                 </label>
@@ -316,7 +316,7 @@ const AddTicket = () => {
                             </div>
 
                             <div className="flex flex-col gap-2">
-                                <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm mb-2">
+                                <label className="flex items-center gap-2 font-semibold  text-sm mb-2">
                                     <IoLocation className="text-orange-500 text-base" />
                                     To
                                 </label>
@@ -333,7 +333,7 @@ const AddTicket = () => {
                             </div>
 
                             <div className="flex flex-col gap-2">
-                                <label className="flex items-center gap-2 font-semibold text-gray-700 text-sm mb-2">
+                                <label className="flex items-center gap-2 font-semibold  text-sm mb-2">
                                     <IoCalendar className="text-orange-500 text-base" />
                                     Departure Date & Time
                                 </label>
@@ -346,7 +346,7 @@ const AddTicket = () => {
                             </div>
 
                             <div className="flex flex-col gap-2">
-                                <label className="font-semibold text-gray-700 text-sm mb-2">Transport Type</label>
+                                <label className="font-semibold  text-sm mb-2">Transport Type</label>
                                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-2">
                                     {transportTypes.map((transport) => (
                                         <div key={transport.value} className="relative">
@@ -378,7 +378,7 @@ const AddTicket = () => {
                             <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-2xl text-white shadow-lg">
                                 <IoCloudUpload />
                             </div>
-                            <h2 className="text-2xl font-semibold text-gray-800 m-0">Ticket Image</h2>
+                            <h2 className="text-2xl font-semibold  m-0">Ticket Image</h2>
                         </div>
 
                         <div className="mt-4">
@@ -401,9 +401,9 @@ const AddTicket = () => {
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className="flex flex-col items-center justify-center gap-4 px-8 py-12 border-2 border-dashed border-gray-300 rounded-xl bg-gray-50 transition-all hover:border-orange-500 hover:bg-orange-50">
+                                        <div className="flex flex-col items-center justify-center gap-4 px-8 py-12 border-2 border-dashed border-gray-300 rounded-xl hover:text-black transition-all hover:border-orange-500 hover:bg-orange-50">
                                             <IoCloudUpload className="text-5xl text-gray-400" />
-                                            <div className="text-lg text-gray-700 text-center">
+                                            <div className="text-lg  text-center">
                                                 <strong className="text-orange-500">Click to upload</strong> or drag and drop
                                             </div>
                                             <div className="text-sm text-gray-600">PNG, JPG, GIF up to 10MB</div>
@@ -421,7 +421,7 @@ const AddTicket = () => {
                             <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-2xl text-white shadow-lg">
                                 <IoCheckmarkCircle />
                             </div>
-                            <h2 className="text-2xl font-semibold text-gray-800 m-0">Available Perks</h2>
+                            <h2 className="text-2xl font-semibold  m-0">Available Perks</h2>
                             <p className="text-sm text-gray-600 m-0 ml-auto">Select the amenities included with this ticket</p>
                         </div>
 
