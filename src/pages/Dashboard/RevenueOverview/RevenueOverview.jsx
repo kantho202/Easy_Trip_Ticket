@@ -114,7 +114,7 @@ const RevenueOverview = () => {
     };
 
     return (
-        <div className="p-8 bg-gray-50 min-h-screen font-sans">
+        <div className="p-8  min-h-screen font-sans">
             {/* Header Section */}
             <div className="flex justify-between items-start mb-8 flex-col md:flex-row gap-4">
                 <div>
@@ -127,12 +127,12 @@ const RevenueOverview = () => {
                     <button
                         onClick={handleRefresh}
                         disabled={isFetching}
-                        className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-xl text-gray-700 font-medium cursor-pointer transition-all hover:bg-gray-50 hover:border-orange-500 hover:text-orange-500"
+                        className="flex items-center gap-2 px-6 py-3  border border-gray-200 rounded-xl  font-medium cursor-pointer transition-all  hover:border-orange-500 hover:text-orange-500"
                     >
                         <FiRefreshCw className={isFetching ? 'animate-spin' : ''} />
                         {isFetching ? 'Refreshing...' : 'Refresh'}
                     </button>
-                    <button className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-xl text-gray-700 font-medium cursor-pointer transition-all hover:bg-gray-50 hover:border-orange-500 hover:text-orange-500">
+                    <button className="flex items-center gap-2 px-6 py-3  border border-gray-200 rounded-xl  font-medium cursor-pointer transition-all  hover:border-orange-500 hover:text-orange-500">
                         <FiDownload />
                         Export
                     </button>
@@ -148,7 +148,7 @@ const RevenueOverview = () => {
                 {statsData.map((stat, index) => (
                     <div
                         key={index}
-                        className="bg-white p-8 rounded-2xl border border-gray-100 transition-all hover:-translate-y-2 hover:shadow-2xl"
+                        className=" p-8 rounded-2xl border border-gray-100 transition-all hover:-translate-y-2 hover:shadow-2xl"
                     >
                         <div className="flex justify-between items-center mb-6">
                             <div
@@ -162,7 +162,7 @@ const RevenueOverview = () => {
                                 {stat.change}
                             </div>
                         </div>
-                        <div className="text-4xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                        <div className="text-4xl font-bold mb-2">{stat.value}</div>
                         <div className="text-gray-500 font-medium mb-4">{stat.title}</div>
                         <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
                             <div
@@ -177,9 +177,9 @@ const RevenueOverview = () => {
             {/* Charts Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
                 {/* Area Chart */}
-                <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className=" rounded-2xl p-8 shadow-sm border border-gray-100">
                     <div className="mb-8">
-                        <h3 className="text-2xl font-semibold text-gray-900 mb-2">Revenue Trend</h3>
+                        <h3 className="text-2xl font-semibold  mb-2">Revenue Trend</h3>
                         <p className="text-gray-500 text-sm">Monthly performance overview</p>
                     </div>
                     <div className="w-full">
@@ -217,9 +217,9 @@ const RevenueOverview = () => {
                 </div>
 
                 {/* Bar Chart */}
-                <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className=" rounded-2xl p-8 shadow-sm border border-gray-100">
                     <div className="mb-8">
-                        <h3 className="text-2xl font-semibold text-gray-900 mb-2">Performance Metrics</h3>
+                        <h3 className="text-2xl font-semibold  mb-2">Performance Metrics</h3>
                         <p className="text-gray-500 text-sm">Comparative analysis</p>
                     </div>
                     <div className="w-full">
@@ -252,9 +252,9 @@ const RevenueOverview = () => {
             {/* Bottom Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Pie Chart */}
-                <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className="rounded-2xl p-8 shadow-sm border border-gray-100">
                     <div className="mb-8">
-                        <h3 className="text-2xl font-semibold text-gray-900 mb-2">Distribution</h3>
+                        <h3 className="text-2xl font-semibold  mb-2">Distribution</h3>
                         <p className="text-gray-500 text-sm">Revenue breakdown</p>
                     </div>
                     <div className="w-full">
