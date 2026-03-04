@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useAuth from '../../../hook/useAuth';
 import useAxiosSecure from '../../../hook/useAxiosecure';
 import Swal from 'sweetalert2';
@@ -14,12 +14,10 @@ import {
     FaSearch,
     FaFilter,
     FaCog,
-    FaEye,
     FaHourglassHalf,
     FaCheckCircle,
     FaTimesCircle
 } from 'react-icons/fa';
-import Loader from '../../../components/Loading/Loading';
 
 const ManageTickets = () => {
     const { user } = useAuth();
@@ -111,7 +109,7 @@ const ManageTickets = () => {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+            <div className="min-h-screen  flex items-center justify-center">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-orange-500 mx-auto mb-4"></div>
                     <div className="text-xl font-semibold text-gray-600">Loading tickets...</div>
@@ -121,7 +119,7 @@ const ManageTickets = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 lg:p-8">
+        <div className="min-h-screen  p-4 lg:p-8">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600"></div>
@@ -129,14 +127,14 @@ const ManageTickets = () => {
 
             <div className="max-w-7xl mx-auto relative z-10">
                 {/* Header Section */}
-                <div className="bg-white rounded-3xl shadow-xl p-8 mb-8 border border-gray-100" data-aos="fade-up">
+                <div className=" rounded-3xl shadow-xl p-8 mb-8 border border-gray-100" data-aos="fade-up">
                     <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                         <div className="flex items-center gap-4">
                             <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl p-4 shadow-lg">
                                 <FaCog size={32} />
                             </div>
                             <div>
-                                <h1 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-2">
+                                <h1 className="text-3xl lg:text-4xl font-bold  mb-2">
                                     Manage Tickets
                                 </h1>
                                 <p className="text-gray-600 text-lg">
@@ -170,7 +168,7 @@ const ManageTickets = () => {
                 </div>
 
                 {/* Filter Section */}
-                <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 border border-gray-100" data-aos="fade-up" data-aos-delay="100">
+                <div className="rounded-2xl shadow-lg p-6 mb-8 border border-gray-100" data-aos="fade-up" data-aos-delay="100">
                     <div className="flex flex-col lg:flex-row justify-between items-center gap-4">
                         {/* Search Bar */}
                         <div className="relative flex-1 max-w-md">
@@ -182,7 +180,7 @@ const ManageTickets = () => {
                                 placeholder="Search by title, name, or email..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-500 focus:outline-none transition-colors duration-300 bg-gray-50 focus:bg-white"
+                                className="w-full pl-12 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-500 focus:outline-none transition-colors duration-300"
                             />
                         </div>
                         
@@ -192,7 +190,7 @@ const ManageTickets = () => {
                             <select
                                 value={statusFilter}
                                 onChange={(e) => setStatusFilter(e.target.value)}
-                                className="px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-orange-500 focus:outline-none transition-colors duration-300 bg-gray-50 focus:bg-white font-semibold"
+                                className="select select-bordered select-sm w-full max-w-xs"
                             >
                                 <option value="all">All Status</option>
                                 <option value="pending">Pending</option>
@@ -204,7 +202,7 @@ const ManageTickets = () => {
                 </div>
 
                 {filteredTickets.length === 0 ? (
-                    <div className="bg-white rounded-3xl shadow-xl p-12 text-center border border-gray-100" data-aos="fade-up" data-aos-delay="200">
+                    <div className="rounded-3xl shadow-xl p-12 text-center border border-gray-100" data-aos="fade-up" data-aos-delay="200">
                         <div className="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6">
                             <FaTicketAlt className="text-gray-400 text-3xl" />
                         </div>
@@ -216,7 +214,7 @@ const ManageTickets = () => {
                 ) : (
                     <>
                         {/* Desktop Table View */}
-                        <div className="hidden lg:block bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100" data-aos="fade-up" data-aos-delay="200">
+                        <div className="hidden lg:block rounded-3xl shadow-xl overflow-hidden border border-gray-100" data-aos="fade-up" data-aos-delay="200">
                             <div className="overflow-x-auto">
                                 <table className="w-full">
                                     <thead className="bg-gradient-to-r from-orange-500 to-orange-600 text-white">
@@ -234,7 +232,7 @@ const ManageTickets = () => {
                                                     Email
                                                 </div>
                                             </th>
-                                            <th className="px-6 py-4 text-left font-semibold">
+                                            <th className="px-6 py-4 text-left font-semibold whitespace-nowrap">
                                                 <div className="flex items-center gap-2">
                                                     <FaTicketAlt />
                                                     Ticket Title
@@ -254,29 +252,29 @@ const ManageTickets = () => {
                                         {filteredTickets.map((ticket, index) => {
                                             const statusInfo = getStatusInfo(ticket.status);
                                             return (
-                                                <tr key={ticket._id} className="border-b border-gray-100 hover:bg-gray-50 transition-colors duration-200">
+                                                <tr key={ticket._id} className="border-b border-gray-100 hover:bg-primary/40 transition-colors duration-200">
                                                     <td className="px-6 py-4">
                                                         <div className="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm">
                                                             {index + 1}
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <div className="font-semibold text-gray-800">{ticket.name}</div>
+                                                        <div className="font-semibold ">{ticket.name}</div>
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <div className="text-gray-600">{ticket.email}</div>
+                                                        <div className="">{ticket.email}</div>
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <div className="font-semibold text-gray-800 max-w-xs truncate">
+                                                        <div className="font-semibold  max-w-xs truncate">
                                                             {ticket.ticketTitle}
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <div className="flex items-center gap-2 text-sm">
-                                                            <FaMapMarkerAlt className="text-orange-500" />
-                                                            <span className="font-medium">{ticket.from}</span>
-                                                            <FaRoute className="text-gray-400" />
-                                                            <span className="font-medium">{ticket.to}</span>
+                                                        <div className="flex flex-wrap items-center gap-2 text-sm max-w-xs">
+                                                            <FaMapMarkerAlt className="text-orange-500 flex-shrink-0" />
+                                                            <span className="font-medium break-words">{ticket.from}</span>
+                                                            <FaRoute className="text-gray-400 flex-shrink-0" />
+                                                            <span className="font-medium break-words">{ticket.to}</span>
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4">
@@ -320,7 +318,7 @@ const ManageTickets = () => {
                             {filteredTickets.map((ticket, index) => {
                                 const statusInfo = getStatusInfo(ticket.status);
                                 return (
-                                    <div key={ticket._id} className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                                    <div key={ticket._id} className="rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
                                         {/* Card Header */}
                                         <div className="flex justify-between items-center mb-4 pb-4 border-b border-gray-100">
                                             <div className="flex items-center gap-3">
