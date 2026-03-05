@@ -31,7 +31,7 @@ const DashboardLayout = () => {
             <div className="drawer drawer-mobile lg:drawer-open min-h-screen pt-16 lg:pt-20">
                 <input id="my-drawer-4" type="checkbox" className="drawer-toggle peer" />
 
-                <div className=" drawer-content
+                <div className="drawer-content bg-base-100
   transition-all
   duration-300
   lg:ml-16
