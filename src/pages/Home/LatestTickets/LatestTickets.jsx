@@ -48,7 +48,7 @@ const LatestTickets = () => {
                 <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-radial from-white/10 via-transparent to-transparent"></div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-8 md:px-4 relative z-10" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="800">
+            <div className="max-w-7xl mx-auto px-4 lg:px-8 md:px-4 relative z-10" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="800">
                 {/* Header Section */}
                 <div className="text-center mb-20 md:mb-12">
 
@@ -88,7 +88,7 @@ const LatestTickets = () => {
                                     </div>
 
                                     {/* Card Content */}
-                                    <div className="p-8">
+                                    <div className="p-4 lg:p-8">
                                         <h3 className="text-2xl font-bold  mb-4">{ticket.ticketTitle}</h3>
 
                                         <div className="flex items-center gap-4 mb-6 px-4 py-4  rounded-xl">
