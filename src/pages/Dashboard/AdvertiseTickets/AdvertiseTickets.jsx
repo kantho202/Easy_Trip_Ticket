@@ -196,7 +196,7 @@ const AdvertiseTickets = () => {
                             <select
                                 value={statusFilter}
                                 onChange={(e) => setStatusFilter(e.target.value)}
-                                className="select select-bordered select-sm w-full max-w-xs"
+                                className="select select-bordered border-2 w-full max-w-xs outline-0 focus:border-orange-500 focus:outline-none"
                             >
                                 <option value="all">All Tickets</option>
                                 <option value="advertised">Advertised</option>

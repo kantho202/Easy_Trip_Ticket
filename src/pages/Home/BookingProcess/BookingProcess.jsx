@@ -44,7 +44,7 @@ const BookingProcess = () => {
                     {steps.map((step, index) => (
                         <div 
                             key={index}
-                            className=" p-8 rounded-2xl text-center shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative"
+                            className="p-4 lg:p-8 rounded-2xl text-center shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative"
                         >
                             <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
                                 {index + 1}
@@ -67,7 +67,7 @@ const BookingProcess = () => {
                     ))}
                 </div>
 
-                <div className="text-center p-12 md:p-8  rounded-3xl ">
+                <div className="text-center p-5 lg:p-12 md:p-4  rounded-3xl ">
                     <h3 className="text-3xl md:text-2xl font-bold  mb-6">
                         Ready to Book Your Ticket?
                     </h3>

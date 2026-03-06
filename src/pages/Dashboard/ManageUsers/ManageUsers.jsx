@@ -208,7 +208,7 @@ const ManageUsers = () => {
                             <select
                                 value={roleFilter}
                                 onChange={(e) => setRoleFilter(e.target.value)}
-                                className="select select-bordered select-sm w-full max-w-xs"
+                                className="select select-bordered select-md w-full  max-w-xs outline-0  focus:border-orange-500 border-2"
                             >
                                 <option value="all">All Roles</option>
                                 <option value="user">Users</option>

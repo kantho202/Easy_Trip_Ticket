@@ -88,7 +88,7 @@ const Contact = () => {
     ];
 
     return (
-        <div className="py-16 px-4  min-h-screen">
+        <div className="py-16 px-0 lg:px-4  min-h-screen">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-12">
@@ -125,7 +125,7 @@ const Contact = () => {
                 {/* Contact Form and Map Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Contact Form */}
-                    <div className=" p-8 rounded-2xl shadow-lg">
+                    <div className="p-4 lg:p-8 rounded-2xl shadow-lg">
                         <h2 className="text-3xl font-bold  mb-6">
                             Send Us a Message
                         </h2>
@@ -216,7 +216,7 @@ const Contact = () => {
                     </div>
 
                     {/* Map Section */}
-                    <div className=" p-8 rounded-2xl shadow-lg">
+                    <div className="p-4 lg:p-8 rounded-2xl shadow-lg">
                         <h2 className="text-3xl font-bold  mb-6">
                             Find Us Here
                         </h2>

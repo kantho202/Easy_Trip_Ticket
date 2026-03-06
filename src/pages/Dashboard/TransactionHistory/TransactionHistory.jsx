@@ -238,69 +238,84 @@ const TransactionHistory = () => {
                         {/* Mobile Card View */}
                         <div className="lg:hidden grid gap-6" data-aos="fade-up" data-aos-delay="300">
                             {filteredPayments.map((payment, index) => (
-                                <div key={payment._id} className="rounded-2xl shadow-lg p-4 lg:p-6 border border-gray-100 hover:shadow-xl transition-all duration-300">
-                                    {/* Card Header */}
-                                    <div className="flex justify-between items-center mb-6">
-                                        <span className="font-bold text-orange-500 text-lg">#{index + 1}</span>
-                                        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-600">
+                                <div key={payment._id} className="rounded-2xl shadow-xl p-6 border border-gray-100 hover:shadow-2xl transition-all duration-300 bg-gradient-to-br from-base-100 to-gray-50">
+                                    {/* Card Header with gradient background */}
+                                    <div className="flex justify-between items-center mb-6 pb-4 border-b-2 border-gray-100">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full flex items-center justify-center font-bold shadow-lg">
+                                                {index + 1}
+                                            </div>
+                                            <div>
+                                                <div className="text-xs text-gray-500 uppercase tracking-wide font-semibold">Transaction</div>
+                                                <div className="font-bold text-gray-800">#{payment.transactionId?.slice(-8)}</div>
+                                            </div>
+                                        </div>
+                                        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg">
                                             <FaCheckCircle />
                                             Completed
                                         </span>
                                     </div>
 
-                                    {/* Ticket Section */}
-                                    <div className="flex items-center gap-4 mb-6 p-4 bg-gray-50 rounded-xl">
-                                        <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl flex items-center justify-center text-xl flex-shrink-0">
-                                            <FaTicketAlt />
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                            <div className="font-semibold text-gray-800 mb-1">
-                                                {payment.ticketName}
+                                    {/* Ticket Section with enhanced design */}
+                                    <div className="mb-6 p-5 bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl border-2 border-orange-200 shadow-sm">
+                                        <div className="flex items-center gap-4">
+                                            <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-2xl flex items-center justify-center text-2xl flex-shrink-0 shadow-lg transform hover:scale-110 transition-transform duration-300">
+                                                <FaTicketAlt />
                                             </div>
-                                            <div className="text-sm text-gray-600">
-                                                Amount: ${formatAmount(payment.amount)}
+                                            <div className="flex-1 min-w-0">
+                                                <div className="text-xs text-orange-600 uppercase tracking-wide font-bold mb-1">Ticket Name</div>
+                                                <div className="font-bold text-gray-900 text-lg mb-2 leading-tight">
+                                                    {payment.ticketName}
+                                                </div>
+                                                <div className="flex items-center gap-2 bg-base-200 px-3 py-2 rounded-lg shadow-sm">
+                                                    <FaMoneyBillWave className="text-green-600" />
+                                                    <span className="text-sm text-gray-600 font-medium">Total Amount:</span>
+                                                    <span className="font-bold text-green-600 text-lg">৳{formatAmount(payment.amount)}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* Info Grid */}
-                                    <div className="grid grid-cols-2 gap-4 mb-6">
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-gray-100 text-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                                                <FaUser />
+                                    {/* Info Grid with enhanced styling */}
+                                    <div className="space-y-3">
+                                        {/* Email */}
+                                        <div className="flex items-center gap-4 p-4 bg-base-200 rounded-xl border border-gray-200 hover:border-orange-300 transition-colors duration-300 shadow-sm">
+                                            <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-blue-200 text-blue-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
+                                                <FaUser size={18} />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Email</div>
+                                                <div className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">Email Address</div>
                                                 <div className="font-semibold  text-sm truncate">{payment.email}</div>
                                             </div>
                                         </div>
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-gray-100 text-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                                                <FaCreditCard />
+
+                                        {/* Transaction ID */}
+                                        <div className="flex items-center gap-4 p-4 bg-base-200 rounded-xl border border-gray-200 hover:border-orange-300 transition-colors duration-300 shadow-sm">
+                                            <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-purple-200 text-purple-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
+                                                <FaCreditCard size={18} />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Transaction</div>
-                                                <div className="font-mono text-xs  truncate">{payment.transactionId}</div>
+                                                <div className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">Transaction ID</div>
+                                                <div className="font-mono text-xs text-gray-800 font-semibold truncate bg-gray-50 px-2 py-1 rounded">{payment.transactionId}</div>
                                             </div>
                                         </div>
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-gray-100 text-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                                                <FaCalendarAlt />
+
+                                        {/* Date & Time */}
+                                        <div className="flex items-center gap-4 p-4 bg-base-200 rounded-xl border border-gray-200 hover:border-orange-300 transition-colors duration-300 shadow-sm">
+                                            <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-green-200 text-green-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">
+                                                <FaCalendarAlt size={18} />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Date & Time</div>
+                                                <div className="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-1">Payment Date</div>
                                                 <div className="font-semibold  text-sm">{formatDate(payment.paidAt)}</div>
                                             </div>
                                         </div>
-                                        <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 bg-gray-100 text-gray-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                                                <FaMoneyBillWave />
-                                            </div>
-                                            <div className="flex-1 min-w-0">
-                                                <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Amount</div>
-                                                <div className="font-bold text-green-600 text-sm">৳{formatAmount(payment.amount)}</div>
-                                            </div>
-                                        </div>
+                                    </div>
+
+                                    {/* Footer with receipt icon */}
+                                    <div className="mt-6 pt-4 border-t-2 border-gray-100 flex items-center justify-center gap-2 ">
+                                        <FaReceipt />
+                                        <span className="text-xs font-medium">Digital Receipt</span>
                                     </div>
                                 </div>
                             ))}
