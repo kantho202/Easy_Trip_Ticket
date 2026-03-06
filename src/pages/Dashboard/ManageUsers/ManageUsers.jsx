@@ -135,48 +135,51 @@ const ManageUsers = () => {
              </div>
 
                 <div className="max-w-7xl mx-auto relative z-10">
-                {/* Header Section */}
-                <div className=" rounded-3xl shadow-xl p-8 mb-8 border border-gray-100" data-aos="fade-up">
-                    <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-                        <div className="flex items-center gap-4">
-                            <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-2xl p-4 shadow-lg">
-                                <FaUsers size={32} />
+                {/* Modern Header Section */}
+                <div className="mb-8">
+                    <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 p-6 lg:p-8 rounded-2xl shadow-lg border border-gray-100/50 backdrop-blur-sm">
+                        {/* Left Section - Icon & Title */}
+                        <div className="flex items-center gap-4 w-full lg:w-auto">
+                            <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-3xl lg:text-4xl text-white shadow-xl flex-shrink-0 transform transition-transform hover:scale-105">
+                                <FaUsers />
                             </div>
-                            <div>
-                                <h1 className="text-3xl lg:text-4xl font-bold  mb-2">
+                            <div className="flex-1">
+                                <h1 className="text-2xl lg:text-4xl font-bold mb-1 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                                     Manage Users
                                 </h1>
-                                <p className="text-gray-600 text-lg">
+                                <p className="text-sm lg:text-base text-gray-600">
                                     Manage user roles and permissions
                                 </p>
                             </div>
                         </div>
-                        
-                        {/* Stats Cards */}
-                        <div className="flex gap-4">
-                            <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-2xl p-4 border border-purple-200 text-center min-w-[80px]">
-                                <div className="text-2xl font-bold text-purple-600">
-                                    {manageUsers.filter(u => u.role === 'admin').length}
+
+                        {/* Right Section - Stats Cards */}
+                        <div className="w-full lg:w-auto">
+                            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+                                <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-3 lg:p-4 border border-purple-200 text-center min-w-[70px] lg:min-w-[80px] hover:shadow-md transition-shadow">
+                                    <div className="text-xl lg:text-2xl font-bold text-purple-600">
+                                        {manageUsers.filter(u => u.role === 'admin').length}
+                                    </div>
+                                    <div className="text-xs lg:text-sm text-purple-600 font-medium">Admins</div>
                                 </div>
-                                <div className="text-sm text-purple-600 font-medium">Admins</div>
-                            </div>
-                            <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-2xl p-4 border border-blue-200 text-center min-w-[80px]">
-                                <div className="text-2xl font-bold text-blue-600">
-                                    {manageUsers.filter(u => u.role === 'vendor').length}
+                                <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-3 lg:p-4 border border-blue-200 text-center min-w-[70px] lg:min-w-[80px] hover:shadow-md transition-shadow">
+                                    <div className="text-xl lg:text-2xl font-bold text-blue-600">
+                                        {manageUsers.filter(u => u.role === 'vendor').length}
+                                    </div>
+                                    <div className="text-xs lg:text-sm text-blue-600 font-medium">Vendors</div>
                                 </div>
-                                <div className="text-sm text-blue-600 font-medium">Vendors</div>
-                            </div>
-                            <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-2xl p-4 border border-green-200 text-center min-w-[80px]">
-                                <div className="text-2xl font-bold text-green-600">
-                                    {manageUsers.filter(u => !u.role || u.role === 'user').length}
+                                <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-3 lg:p-4 border border-green-200 text-center min-w-[70px] lg:min-w-[80px] hover:shadow-md transition-shadow">
+                                    <div className="text-xl lg:text-2xl font-bold text-green-600">
+                                        {manageUsers.filter(u => !u.role || u.role === 'user').length}
+                                    </div>
+                                    <div className="text-xs lg:text-sm text-green-600 font-medium">Users</div>
                                 </div>
-                                <div className="text-sm text-green-600 font-medium">Users</div>
-                            </div>
-                            <div className="bg-gradient-to-r from-red-50 to-red-100 rounded-2xl p-4 border border-red-200 text-center min-w-[80px]">
-                                <div className="text-2xl font-bold text-red-600">
-                                    {manageUsers.filter(u => u.role === 'fraud').length}
+                                <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-3 lg:p-4 border border-red-200 text-center min-w-[70px] lg:min-w-[80px] hover:shadow-md transition-shadow">
+                                    <div className="text-xl lg:text-2xl font-bold text-red-600">
+                                        {manageUsers.filter(u => u.role === 'fraud').length}
+                                    </div>
+                                    <div className="text-xs lg:text-sm text-red-600 font-medium">Fraud</div>
                                 </div>
-                                <div className="text-sm text-red-600 font-medium">Fraud</div>
                             </div>
                         </div>
                     </div>
@@ -364,7 +367,7 @@ const ManageUsers = () => {
                                                 </div>
                                                 <div className="flex-1">
                                                     <div className="text-sm text-gray-500 font-medium">Name</div>
-                                                    <div className="font-semibold text-gray-800">{user.displayName}</div>
+                                                    <div className="font-semibold ">{user.displayName}</div>
                                                 </div>
                                             </div>
                                             
@@ -374,7 +377,7 @@ const ManageUsers = () => {
                                                 </div>
                                                 <div className="flex-1">
                                                     <div className="text-sm text-gray-500 font-medium">Email</div>
-                                                    <div className="font-semibold text-gray-800">{user.email}</div>
+                                                    <div className="font-semibold ">{user.email}</div>
                                                 </div>
                                             </div>
                                         </div>

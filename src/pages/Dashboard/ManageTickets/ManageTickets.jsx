@@ -336,7 +336,7 @@ const ManageTickets = () => {
                                         {/* Card Content */}
                                         <div className="space-y-4">
                                             <div>
-                                                <h3 className="text-xl font-bold text-gray-800 mb-2">
+                                                <h3 className="text-xl font-bold  mb-2">
                                                     {ticket.ticketTitle}
                                                 </h3>
                                             </div>
@@ -348,7 +348,7 @@ const ManageTickets = () => {
                                                     </div>
                                                     <div className="flex-1">
                                                         <div className="text-sm text-gray-500 font-medium">Name</div>
-                                                        <div className="font-semibold text-gray-800">{ticket.name}</div>
+                                                        <div className="font-semibold ">{ticket.name}</div>
                                                     </div>
                                                 </div>
                                                 
@@ -358,7 +358,7 @@ const ManageTickets = () => {
                                                     </div>
                                                     <div className="flex-1">
                                                         <div className="text-sm text-gray-500 font-medium">Email</div>
-                                                        <div className="font-semibold text-gray-800">{ticket.email}</div>
+                                                        <div className="font-semibold ">{ticket.email}</div>
                                                     </div>
                                                 </div>
                                                 
@@ -368,7 +368,7 @@ const ManageTickets = () => {
                                                     </div>
                                                     <div className="flex-1">
                                                         <div className="text-sm text-gray-500 font-medium">Route</div>
-                                                        <div className="font-semibold text-gray-800">
+                                                        <div className="font-semibold ">
                                                             {ticket.from} → {ticket.to}
                                                         </div>
                                                     </div>

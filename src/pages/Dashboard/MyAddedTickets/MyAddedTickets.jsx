@@ -185,22 +185,37 @@ const MyAddedTickets = () => {
     }
 
     return (
-        <div className="p-8 md:p-4  min-h-screen font-sans">
-            <div className="flex flex-col md:flex-row items-center gap-8 mb-12 p-8  rounded-xl shadow-md border border-gray-100 md:gap-4">
-                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-4xl text-white shadow-xl flex-shrink-0">
-                    <LuTicketsPlane />
-                </div>
-                <div className="flex-1 text-center md:text-left">
-                    <h1 className="text-4xl md:text-3xl font-bold text-gray-800 mb-2 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
-                        My Added Tickets
-                    </h1>
-                    <p className="text-lg md:text-base text-gray-600 m-0">
-                        Manage and track your ticket listings
-                    </p>
-                </div>
-                <div className="text-center px-6 py-6 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl text-white min-w-[120px] flex-shrink-0">
-                    <div className="text-3xl font-bold mb-1">{tickets.length}</div>
-                    <div className="text-sm opacity-90">Total Tickets</div>
+        <div className="p-4 lg:p-8 md:p-4 min-h-screen font-sans">
+            {/* Modern Header Section */}
+            <div className="mb-8">
+                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 p-6 lg:p-8 rounded-2xl shadow-lg border border-gray-100/50 backdrop-blur-sm">
+                    {/* Left Section - Icon & Title */}
+                    <div className="flex items-center gap-4 w-full lg:w-auto">
+                        <div className="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-3xl lg:text-4xl text-white shadow-xl flex-shrink-0 transform transition-transform hover:scale-105">
+                            <LuTicketsPlane />
+                        </div>
+                        <div className="flex-1">
+                            <h1 className="text-2xl lg:text-4xl font-bold mb-1 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+                                My Added Tickets
+                            </h1>
+                            <p className="text-sm lg:text-base text-gray-600">
+                                Manage and track your ticket listings
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Right Section - Stats Card */}
+                    <div className="w-full lg:w-auto">
+                        <div className="flex items-center justify-between lg:justify-center gap-4 p-4 lg:p-6 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl lg:rounded-2xl text-white shadow-lg min-w-full lg:min-w-[140px]">
+                            <div className="flex items-center gap-3 lg:flex-col lg:gap-1 lg:text-center">
+                                <div className="text-3xl lg:text-4xl font-bold">{tickets.length}</div>
+                                <div className="text-sm lg:text-base opacity-90 font-medium">Total Tickets</div>
+                            </div>
+                            <div className="lg:hidden">
+                                <LuTicketsPlane className="text-3xl opacity-50" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -230,7 +245,7 @@ const MyAddedTickets = () => {
                                     </div>
                                 </div>
 
-                                <div className="p-8">
+                                <div className="p-4 lg:p-8">
                                     <h3 className="text-2xl font-bold  mb-4">{ticket.ticketTitle}</h3>
                                    
                                     <div className="flex items-center gap-4 mb-6 px-4 py-4  rounded-xl">

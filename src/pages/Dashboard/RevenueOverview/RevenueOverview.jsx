@@ -114,7 +114,7 @@ const RevenueOverview = () => {
     };
 
     return (
-        <div className="p-8  min-h-screen font-sans">
+        <div className="p-4 lg:p-8  min-h-screen font-sans">
             {/* Header Section */}
             <div className="flex justify-between items-start mb-8 flex-col md:flex-row gap-4">
                 <div>

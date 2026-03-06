@@ -320,7 +320,7 @@ const AdvertiseTickets = () => {
                             {filteredTickets.map((ticket, index) => {
                                 const statusInfo = getAdvertiseStatus(ticket.isAdvertised);
                                 return (
-                                    <div key={ticket._id} className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                                    <div key={ticket._id} className="rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
                                         {/* Card Header */}
                                         <div className="flex justify-between items-center mb-4 pb-4 border-b border-gray-100">
                                             <div className="flex items-center gap-3">
@@ -342,10 +342,10 @@ const AdvertiseTickets = () => {
                                         {/* Card Content */}
                                         <div className="space-y-4">
                                             <div>
-                                                <h3 className="text-xl font-bold text-gray-800 mb-2">
+                                                <h3 className="text-xl font-bold  mb-2">
                                                     {ticket.ticketTitle}
                                                 </h3>
-                                                <p className="text-gray-600 text-sm">
+                                                <p className="text-gray-500 text-sm">
                                                     {ticket.from} → {ticket.to}
                                                 </p>
                                             </div>
@@ -357,7 +357,7 @@ const AdvertiseTickets = () => {
                                                     </div>
                                                     <div className="flex-1">
                                                         <div className="text-sm text-gray-500 font-medium">Email</div>
-                                                        <div className="font-semibold text-gray-800">{ticket.email}</div>
+                                                        <div className="font-semibold ">{ticket.email}</div>
                                                     </div>
                                                 </div>
                                                 
@@ -367,7 +367,7 @@ const AdvertiseTickets = () => {
                                                     </div>
                                                     <div className="flex-1">
                                                         <div className="text-sm text-gray-500 font-medium">Departure Date</div>
-                                                        <div className="font-semibold text-gray-800">{formatDate(ticket.departureDateTime)}</div>
+                                                        <div className="font-semibold ">{formatDate(ticket.departureDateTime)}</div>
                                                     </div>
                                                 </div>
                                             </div>

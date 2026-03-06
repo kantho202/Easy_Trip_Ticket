@@ -305,10 +305,9 @@ const AddTicket = () => {
                                 </label>
                                 <input
                                     {...register('from', { required: 'Departure location is required' })}
-                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all cursor-pointer focus:outline-none focus:border-orange-500 focus:shadow-orange"
-                               />
-                                    
-                                
+                                    placeholder="Enter departure location"
+                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all cursor-pointer focus:outline-none focus:border-orange-500 focus:shadow-orange placeholder:text-gray-400"
+                                />
                                 {errors.from && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">{errors.from.message}</span>}
                             </div>
 
@@ -319,10 +318,9 @@ const AddTicket = () => {
                                 </label>
                                 <input
                                     {...register('to', { required: 'Destination is required' })}
-                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all cursor-pointer focus:outline-none focus:border-orange-500 focus:shadow-orange"
+                                    placeholder="Enter destination location"
+                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all cursor-pointer focus:outline-none focus:border-orange-500 focus:shadow-orange placeholder:text-gray-400"
                                 />
-                                   
-                                
                                 {errors.to && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">{errors.to.message}</span>}
                             </div>
 
@@ -334,7 +332,7 @@ const AddTicket = () => {
                                 <input
                                     type="datetime-local"
                                     {...register('departureDateTime', { required: 'Departure date and time is required' })}
-                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all focus:outline-none focus:border-orange-500 focus:shadow-orange"
+                                    className="px-5 py-4 border-2 border-gray-200 rounded-xl text-base transition-all focus:outline-none focus:border-orange-500 focus:shadow-orange [color-scheme:light]"
                                 />
                                 {errors.departureDateTime && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">{errors.departureDateTime.message}</span>}
                             </div>
@@ -480,6 +478,27 @@ const AddTicket = () => {
             <style jsx>{`
                 .focus\\:shadow-orange:focus {
                     box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.1);
+                }
+                
+                /* Force datetime input icons to be visible in dark mode */
+                input[type="datetime-local"] {
+                    color-scheme: light;
+                }
+                
+                input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+                    filter: invert(0.5);
+                    cursor: pointer;
+                }
+                
+                /* Dark mode specific fixes */
+                @media (prefers-color-scheme: dark) {
+                    input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+                        filter: invert(1);
+                    }
+                }
+                
+                [data-theme="dark"] input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+                    filter: invert(1);
                 }
             `}</style>
         </div>
