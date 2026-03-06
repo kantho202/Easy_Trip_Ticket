@@ -40,13 +40,13 @@ const AboutSection = () => {
                                     <FaRocket />
                                 </div>
                                 <div className=''>
-                                    <div className="text-2xl font-bold text-gray-700">20K+</div>
+                                    <div className="text-xl lg:text-2xl font-bold text-gray-700">20K+</div>
                                     <div className="text-sm text-gray-700">Tickets Booked</div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-4 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4">
                             {achievements.map((item, index) => (
                                 <div 
                                     key={index}

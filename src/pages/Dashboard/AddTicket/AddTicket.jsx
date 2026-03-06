@@ -162,14 +162,14 @@ const AddTicket = () => {
     }
 
     return (
-        <div className="min-h-screen  p-8 md:p-4 font-sans">
+        <div className="min-h-screen  p-4 lg:p-8 md:p-4 font-sans">
             {/* Header Section */}
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-12 p-8 rounded-3xl shadow-md border border-gray-100">
-                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-4xl text-white shadow-xl flex-shrink-0">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-12 p-4 lg:p-8 rounded-3xl shadow-md border border-gray-100">
+                <div className="w-15 lg:w-20 h-15 lg:h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-4xl text-white shadow-xl flex-shrink-0">
                     <IoTicket />
                 </div>
                 <div className="flex-1">
-                    <h1 className="text-5xl md:text-3xl font-bold text-gray-800 mb-2 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+                    <h1 className="text-3xl lg:text-5xl md:text-3xl font-bold text-gray-800 mb-2 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                         Add New Ticket
                     </h1>
                     <p className="text-xl md:text-base text-gray-600 m-0">
@@ -180,7 +180,7 @@ const AddTicket = () => {
 
             {/* Form Container */}
             <div className=" rounded-3xl shadow-xl border border-gray-100 overflow-hidden">
-                <form onSubmit={handleSubmit(handleAddTicket)} className="p-12 md:p-6">
+                <form onSubmit={handleSubmit(handleAddTicket)} className="p-4 lg:p-12 md:p-6">
                     {/* Personal Information Section */}
                     <div className="mb-12">
                         <div className="flex items-center gap-4 mb-8 pb-4 border-b-2 border-gray-100">
@@ -411,12 +411,15 @@ const AddTicket = () => {
 
                     {/* Perks Section */}
                     <div className="mb-12">
-                        <div className="flex items-center gap-4 mb-8 pb-4 border-b-2 border-gray-100">
-                            <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-2xl text-white shadow-lg">
+                        <div className=" items-center gap-4 mb-8 pb-4 border-b-2 border-gray-100">
+                            <div className='flex gap-2 items-center'>
+<div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-2xl text-white shadow-lg">
                                 <IoCheckmarkCircle />
+                                
                             </div>
                             <h2 className="text-2xl font-semibold  m-0">Available Perks</h2>
-                            <p className="text-sm text-gray-600 m-0 ml-auto">Select the amenities included with this ticket</p>
+                            </div>
+                            <p className="text-sm text-gray-600 m-0 pt-2 ml-auto">Select the amenities included with this ticket</p>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
