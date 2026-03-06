@@ -7,7 +7,7 @@ import { LuLogOut } from 'react-icons/lu';
 import useRole from '../../hook/useRole';
 import Loader from '../../components/Loading/Loading';
 const Navbar = () => {
-    const { user, signOutUser,loading } = useAuth()
+    const { user, signOutUser, loading } = useAuth()
     const { role } = useRole()
 
     const handleLogout = () => {
@@ -36,17 +36,17 @@ const Navbar = () => {
         return "/dashboard/userProfile"
     }
     const links = <>
-        <li><NavLink className={"font-medium text-base hover:bg-primary mr-3  "} to="/">Home</NavLink></li>
+        <li><NavLink className={"font-medium text-base hover:bg-primary mr-3 text-center "} to="/">Home</NavLink></li>
         <li><NavLink className={"font-medium text-base hover:bg-primary mr-3"} to="/allTickets">All Tickets</NavLink></li>
         <li><NavLink className={"font-medium text-base hover:bg-primary mr-3"} to={getDashboardRoute()}>
             Dashboard</NavLink></li>
     </>
-    if(loading){
+    if (loading) {
         return <Loader></Loader>
     }
     return (
         <div className="navbar sticky top-0 z-50 px-3  lg:px-10 bg-base-100 ">
-           
+
             <div className="lg:hidden pr-3">
                 <input id="my-drawer-1" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content">
@@ -59,15 +59,29 @@ const Navbar = () => {
                 </div>
                 <div className="drawer-side space-y-">
                     <label htmlFor="my-drawer-1" aria-label="close sidebar" className="drawer-overlay"></label>
-                    <ul className="menu bg-base-200 min-h-full w-64 p-4 flex flex-col text-center">
+                    <ul className="menu bg-base-200  min-h-full w-64 p-4 flex flex-col justify-between text-center">
 
                         {/* Top links */}
-                        <div className="space-y-5">
+                            <Logo ></Logo>
+                        <div className="space-y-5 ">
                             {links}
                         </div>
 
                         {/* Bottom buttons */}
-                        
+                        {
+                            user ?
+                                <button onClick={handleLogout}
+                                    className='btn btn-sm btn-primary btn-outline my-btn '>
+                                    <LuLogOut />LogOut</button>
+                                :
+                                <>
+                                   <div className='flex flex-col gap-2'>
+                                     <Link to="/login"><button className='btn btn-primary btn-outline w-full  lg:flex'>Log in</button></Link>
+                                    <Link to="/register"><button className='btn btn-primary w-full lg:flex'>Register</button></Link>
+                                   </div>
+                                </>
+                        }
+
 
                     </ul>
 
