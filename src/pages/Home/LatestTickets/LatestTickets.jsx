@@ -66,7 +66,7 @@ const LatestTickets = () => {
                         const TransportIcon = transportIcons[ticket.transport] || FaBus;
                         return (
                             <div key={ticket._id} data-aos="fade-up" data-aos-duration="800" data-aos-delay={index * 100} className="h-full flex flex-col">
-                                <div className=" rounded-[10px] overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-4 hover:scale-105 hover:shadow-3xl border border-white/20 flex flex-col h-full group">
+                                <div className=" rounded-[10px] overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-4 hover:scale-100 hover:shadow-3xl border border-white/20 flex flex-col h-full group">
                                     {/* Image Container */}
                                     <div className="relative h-64 overflow-hidden flex-shrink-0">
                                         <img

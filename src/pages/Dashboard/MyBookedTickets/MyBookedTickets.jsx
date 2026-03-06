@@ -5,12 +5,12 @@ import { Link } from 'react-router';
 import useAuth from '../../../hook/useAuth';
 import Countdown from 'react-countdown';
 import Loader from '../../../components/Loading/Loading';
-import { 
-    FaMapMarkerAlt, 
-    FaUsers, 
-    FaBus, 
-    FaTrain, 
-    FaPlane, 
+import {
+    FaMapMarkerAlt,
+    FaUsers,
+    FaBus,
+    FaTrain,
+    FaPlane,
     FaShip,
     FaArrowRight,
     FaCalendarAlt,
@@ -27,11 +27,12 @@ import {
     FaCreditCard,
     FaRoute
 } from 'react-icons/fa';
+import { LuCalendar, LuClock, LuMapPin, LuUsers } from 'react-icons/lu';
 
 const MyBookedTickets = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
-    
+
     const { data: bookings = [], isLoading } = useQuery({
         queryKey: ['bookings', user?.email],
         queryFn: async () => {
@@ -73,38 +74,38 @@ const MyBookedTickets = () => {
 
     const getStatusInfo = (status, paymentStatus) => {
         if (paymentStatus === 'paid') {
-            return { 
-                color: 'text-green-600', 
-                bg: 'bg-green-100', 
+            return {
+                color: 'text-green-600',
+                bg: 'bg-green-100',
                 border: 'border-green-300',
-                icon: FaCheckCircle, 
-                text: 'Paid' 
+                icon: FaCheckCircle,
+                text: 'Paid'
             };
         }
         switch (status) {
             case 'accepted':
-                return { 
-                    color: 'text-green-600', 
-                    bg: 'bg-green-100', 
+                return {
+                    color: 'text-green-600',
+                    bg: 'bg-green-100',
                     border: 'border-green-300',
-                    icon: FaCheckCircle, 
-                    text: 'Accepted' 
+                    icon: FaCheckCircle,
+                    text: 'Accepted'
                 };
             case 'rejected':
-                return { 
-                    color: 'text-red-600', 
-                    bg: 'bg-red-100', 
+                return {
+                    color: 'text-red-600',
+                    bg: 'bg-red-100',
                     border: 'border-red-300',
-                    icon: FaTimesCircle, 
-                    text: 'Rejected' 
+                    icon: FaTimesCircle,
+                    text: 'Rejected'
                 };
             default:
-                return { 
-                    color: 'text-yellow-600', 
-                    bg: 'bg-yellow-100', 
+                return {
+                    color: 'text-yellow-600',
+                    bg: 'bg-yellow-100',
                     border: 'border-yellow-300',
-                    icon: FaHourglassHalf, 
-                    text: 'Pending' 
+                    icon: FaHourglassHalf,
+                    text: 'Pending'
                 };
         }
     };
@@ -174,7 +175,7 @@ const MyBookedTickets = () => {
 
     if (isLoading) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+            <div className="min-h-screen  flex items-center justify-center">
                 <div className="text-center">
                     <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-orange-500 mx-auto mb-4"></div>
                     <div className="text-xl font-semibold text-gray-600">Loading your bookings...</div>
@@ -184,7 +185,7 @@ const MyBookedTickets = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4">
+        <div className="min-h-screen  py-8 px-4">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600"></div>
@@ -197,10 +198,10 @@ const MyBookedTickets = () => {
                         <FaStar className="text-yellow-300" />
                         My Bookings
                     </div>
-                    <h1 className="text-4xl lg:text-5xl font-bold text-gray-800 mb-4 leading-tight">
+                    <h1 className="text-4xl lg:text-5xl font-bold mb-4 leading-tight">
                         My Booked Tickets
                     </h1>
-                    <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                    <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
                         Manage your travel bookings and track payment status
                     </p>
                 </div>
@@ -212,16 +213,16 @@ const MyBookedTickets = () => {
                         const isReject = book.status === "rejected";
                         const statusInfo = getStatusInfo(book.status, book.paymentStatus);
                         const TransportIcon = transportIcons[book.transport] || FaBus;
-                        
+
                         return (
-                            <div 
-                                key={book._id} 
-                                data-aos="fade-up" 
-                                data-aos-duration="800" 
+                            <div
+                                key={book._id}
+                                data-aos="fade-up"
+                                data-aos-duration="800"
                                 data-aos-delay={index * 100}
                                 className="h-full flex flex-col"
                             >
-                                <div className="rounded-[10px] overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-4 hover:scale-105 hover:shadow-3xl border border-white/20 flex flex-col h-full group">
+                                <div className="rounded-[10px] overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-4 hover:scale-100 hover:shadow-3xl border border-white/20 flex flex-col h-full group">
                                     {/* Image Container */}
                                     <div className="relative h-64 overflow-hidden flex-shrink-0">
                                         <img
@@ -230,11 +231,14 @@ const MyBookedTickets = () => {
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/60"></div>
-                                        
+
                                         {/* Price Tag */}
                                         <div className="absolute top-4 right-4 px-4 py-2 bg-white/95 text-orange-500 rounded-full font-bold text-lg backdrop-blur-md">
-                                            ৳{book.total_price}
+                                            ${book.total_price}
                                         </div>
+                                        {/* <div className="absolute top-4 right-4 px-4 py-2 bg-white/95 text-orange-500 rounded-full font-bold text-lg backdrop-blur-md">
+                                            ৳{book.total_price}
+                                        </div> */}
 
                                         {/* Status Badge */}
                                         <div className={`absolute top-4 left-4 ${statusInfo.bg} ${statusInfo.color} px-3 py-2 rounded-2xl text-xs font-semibold backdrop-blur-md border border-white/20 flex items-center gap-2`}>
@@ -247,7 +251,18 @@ const MyBookedTickets = () => {
                                     <div className="p-4 lg:p-8">
                                         <h3 className="text-2xl font-bold mb-4">{book.ticket_title}</h3>
 
-                                        <div className="flex items-center gap-4 mb-6 px-4 py-4 rounded-xl">
+                                        <div className="flex items-center gap-4 mb-6 px-4 py-4  rounded-xl">
+                                            <div className="flex items-center gap-2 font-semibold ">
+                                                <LuMapPin className="text-orange-500" />
+                                                <span>{book.from}</span>
+                                            </div>
+                                            <div className="text-orange-500 font-bold text-xl">→ </div>
+                                            <div className="flex items-center gap-2 font-semibold ">
+                                                <LuMapPin className="text-orange-500" />
+                                                <span>{book.to}</span>
+                                            </div>
+                                        </div>
+                                        {/* <div className="flex items-center gap-4 mb-6 px-4 py-4 rounded-xl">
                                             <div className="flex items-center gap-2 font-semibold">
                                                 <FaMapMarkerAlt className="text-orange-500" />
                                                 <span>{book.from}</span>
@@ -257,49 +272,54 @@ const MyBookedTickets = () => {
                                                 <FaMapMarkerAlt className="text-orange-500" />
                                                 <span>{book.to}</span>
                                             </div>
-                                        </div>
+                                        </div> */}
 
                                         <div className="grid grid-cols-2 gap-4 mb-6">
+
                                             <div className="flex items-center gap-3">
                                                 <div className="w-10 h-10 bg-orange-50 border-2 border-orange-200 rounded-lg flex items-center justify-center text-orange-500 text-lg">
                                                     <TransportIcon />
                                                 </div>
                                                 <div className="flex-1">
-                                                    <div className="text-xs font-semibold uppercase mb-1">Transport</div>
+                                                    <div className="text-xs font-semibold  uppercase  mb-1">Transport</div>
                                                     <div className="tracking-wide text-gray-700 text-sm">{book.transport}</div>
                                                 </div>
                                             </div>
 
                                             <div className="flex items-center gap-3">
                                                 <div className="w-10 h-10 bg-orange-50 border-2 border-orange-200 rounded-lg flex items-center justify-center text-orange-500 text-lg">
-                                                    <FaUsers />
+                                                    <LuUsers />
                                                 </div>
                                                 <div className="flex-1">
-                                                    <div className="text-xs font-semibold uppercase mb-1">Booked</div>
+                                                    <div className="text-xs font-semibold  uppercase  mb-1">Quantity</div>
                                                     <div className="tracking-wide text-gray-700 text-sm">{book.bookingQuantity}</div>
                                                 </div>
                                             </div>
 
+
                                             <div className="flex items-center gap-3">
                                                 <div className="w-10 h-10 bg-orange-50 border-2 border-orange-200 rounded-lg flex items-center justify-center text-orange-500 text-lg">
-                                                    <FaCalendarAlt />
+                                                    <LuCalendar />
                                                 </div>
                                                 <div className="flex-1">
                                                     <div className="text-xs font-semibold uppercase mb-1">Departure</div>
                                                     <div className="tracking-wide text-gray-700 text-sm">
-                                                        {formatDate(book.departureDateTime)}
+                                                        {new Date(book.departureDateTime).toLocaleDateString()}
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div className="flex items-center gap-3">
                                                 <div className="w-10 h-10 bg-orange-50 border-2 border-orange-200 rounded-lg flex items-center justify-center text-orange-500 text-lg">
-                                                    <FaClock />
+                                                    <LuClock />
                                                 </div>
                                                 <div className="flex-1">
-                                                    <div className="text-xs font-semibold uppercase mb-1">Time</div>
+                                                    <div className="text-xs font-semibold uppercase  mb-1">Time</div>
                                                     <div className="tracking-wide text-gray-700 text-sm">
-                                                        {formatTime(book.departureDateTime)}
+                                                        {new Date(book.departureDateTime).toLocaleTimeString([], {
+                                                            hour: '2-digit',
+                                                            minute: '2-digit'
+                                                        })}
                                                     </div>
                                                 </div>
                                             </div>
@@ -312,8 +332,8 @@ const MyBookedTickets = () => {
                                             <div className="flex-1 min-w-0">
                                                 <div className="text-xs font-semibold uppercase tracking-wide mb-1">Booked by</div>
                                                 <div className="text-sm text-gray-500 font-semibold truncate">
-                                                    {user?.displayName?.length > 15 ? 
-                                                        user.displayName.slice(0, 15) + '...' : 
+                                                    {user?.displayName?.length > 15 ?
+                                                        user.displayName.slice(0, 15) + '...' :
                                                         user?.displayName || 'User'
                                                     }
                                                 </div>
@@ -361,16 +381,15 @@ const MyBookedTickets = () => {
                                                 <button
                                                     onClick={() => handlePayment(book)}
                                                     disabled={book.status !== "accepted" || isExpired}
-                                                    className={`relative w-full border-none px-6 py-3 rounded-2xl font-bold text-lg cursor-pointer transition-all duration-500 overflow-hidden shadow-xl ${
-                                                        book.status !== "accepted" || isExpired
-                                                            ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                                                            : "bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 group"
-                                                    }`}
+                                                    className={`relative w-full border-none px-6 py-3 rounded-2xl font-bold text-lg cursor-pointer transition-all duration-500 overflow-hidden shadow-xl ${book.status !== "accepted" || isExpired
+                                                        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                                                        : "bg-gradient-to-r from-orange-500 to-orange-600 text-white hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 group"
+                                                        }`}
                                                 >
                                                     <div className="flex items-center justify-center gap-4 relative z-10">
                                                         <span className="text-lg">
-                                                            {book.status !== 'accepted' ? 'Waiting Approval' : 
-                                                             isExpired ? 'Expired' : 'Pay Now'}
+                                                            {book.status !== 'accepted' ? 'Waiting Approval' :
+                                                                isExpired ? 'Expired' : 'Pay Now'}
                                                         </span>
                                                         <FaCreditCard className="text-xl transition-transform duration-300 group-hover:translate-x-1" />
                                                     </div>
