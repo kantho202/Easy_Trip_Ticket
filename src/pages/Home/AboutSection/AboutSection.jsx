@@ -68,7 +68,7 @@ const AboutSection = () => {
 
                     {/* Right Side - Content */}
                     <div>
-                        <div className="inline-block px-5 py-2 rounded-full text-sm font-semibold mb-6">
+                        <div className="inline-block px-5 py-2 rounded-full text-xl font-semibold mb-6">
                             About Us
                         </div>
                         <h2 className="text-4xl md:text-3xl font-bold  mb-6 leading-tight ">
