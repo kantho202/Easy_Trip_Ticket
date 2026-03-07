@@ -8,7 +8,7 @@ import Loader from '../../components/Loading/Loading';
 // import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const SocialLogin = () => {
-    const {googleSigInUser,loading}=useAuth();
+    const {googleSigInUser}=useAuth();
     const axiosSecure =useAxiosSecure()
     const navigate =useNavigate()
     // const axiosSecure =useAxiosSecure()
@@ -34,9 +34,7 @@ const SocialLogin = () => {
             console.log(error)
         })
     }
-    if(loading){
-        return <Loader></Loader>
-    }
+    
     return (
         <div>
             <p className='text-center font-normal text-base'>Or</p>

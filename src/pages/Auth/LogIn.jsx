@@ -8,12 +8,13 @@ import useAuth from '../../hook/useAuth';
 import SocialLogin from './SocialLogin';
 import { Bounce, toast } from 'react-toastify';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Loader from '../../components/Loading/Loading';
 
 // import Loading from '../../components/Loading/Loading';
 
 const LogIn = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const { signInUser } = useAuth();
+    const { signInUser,loading } = useAuth();
     const location = useLocation()
     const navigate = useNavigate()
     const handleLogIn = (data) => {
@@ -42,6 +43,9 @@ const LogIn = () => {
     const handleTogglePasswordShow=(event)=>{
         event.preventDefault()
         setShowPassword(!showPassword)
+    }
+    if(loading){
+        return <Loader/>
     }
     return (
         <div className="card  w-full max-w-lg pt-14   ">
