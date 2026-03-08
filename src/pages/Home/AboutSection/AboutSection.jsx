@@ -5,7 +5,7 @@ import {
     FaGlobe,
     FaCheckCircle 
 } from 'react-icons/fa';
-
+import image from '../../../assets/Gray Modern Mood Boards .png'
 const AboutSection = () => {
     const achievements = [
         { icon: <FaUsers />, number: "10K+", label: "Happy Customers" },
@@ -33,7 +33,7 @@ const AboutSection = () => {
                             <img 
                                 src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&h=600&fit=crop" 
                                 alt="Online Ticket Booking"
-                                className="w-full h-96 md:h-72 object-cover"
+                                className="w-full h-96 md:h- object-cover"
                             />
                             <div className="absolute bottom-5 right-5 bg-white p-6 rounded-2xl shadow-xl flex items-center gap-4 animate-float">
                                 <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl flex items-center justify-center text-2xl">

@@ -38,8 +38,8 @@ const AddTicket = () => {
     const axiosSecure = useAxiosSecure();
     const { user, loading } = useAuth();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [imagePreview, setImagePreview] = useState(null);
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [imagePreviews, setImagePreviews] = useState([]);
+    const [selectedImages, setSelectedImages] = useState([]);
 
     const perks = [
         { name: "AC", icon: FaSnowflake, label: "Air Conditioning" },
@@ -59,34 +59,59 @@ const AddTicket = () => {
     const { register, handleSubmit, formState: { errors }, clearErrors } = useForm();
 
     const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        const files = Array.from(e.target.files);
+        
+        if (files.length === 0) return;
+        
+        // Check if adding these files would exceed the limit
+        if (selectedImages.length + files.length > 5) {
+            toast.error('You can only upload up to 5 images');
+            return;
+        }
+
+        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+        const maxSize = 10 * 1024 * 1024;
+
+        const validFiles = [];
+        const newPreviews = [];
+
+        for (const file of files) {
             if (!validTypes.includes(file.type)) {
-                toast.error('Please select a valid image file (JPG, PNG, GIF, WebP)');
-                return;
+                toast.error(`${file.name} is not a valid image file`);
+                continue;
             }
 
-            const maxSize = 10 * 1024 * 1024;
             if (file.size > maxSize) {
-                toast.error('Image size should be less than 10MB');
-                return;
+                toast.error(`${file.name} is too large (max 10MB)`);
+                continue;
             }
 
-            setSelectedImage(file);
-            clearErrors('image');
+            validFiles.push(file);
 
             const reader = new FileReader();
             reader.onloadend = () => {
-                setImagePreview(reader.result);
+                newPreviews.push(reader.result);
+                if (newPreviews.length === validFiles.length) {
+                    setImagePreviews(prev => [...prev, ...newPreviews]);
+                }
             };
             reader.readAsDataURL(file);
         }
+
+        if (validFiles.length > 0) {
+            setSelectedImages(prev => [...prev, ...validFiles]);
+            clearErrors('image');
+        }
+    };
+
+    const removeImage = (index) => {
+        setSelectedImages(prev => prev.filter((_, i) => i !== index));
+        setImagePreviews(prev => prev.filter((_, i) => i !== index));
     };
 
     const handleAddTicket = async (data) => {
-        if (!selectedImage) {
-            toast.error('Please select an image');
+        if (selectedImages.length === 0) {
+            toast.error('Please select at least one image');
             return;
         }
 
@@ -106,23 +131,32 @@ const AddTicket = () => {
         setIsSubmitting(true);
 
         try {
-            const formData = new FormData();
-            formData.append('image', selectedImage);
-
             const imageAPI_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`;
-            
-            const imageResponse = await axios.post(imageAPI_URL, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            });
+            const uploadedImageUrls = [];
 
-            if (imageResponse.data && imageResponse.data.data && imageResponse.data.data.url) {
-                const imageUrl = imageResponse.data.data.url;
-                
+            // Upload all images
+            for (const image of selectedImages) {
+                const formData = new FormData();
+                formData.append('image', image);
+
+                const imageResponse = await axios.post(imageAPI_URL, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+
+                if (imageResponse.data && imageResponse.data.data && imageResponse.data.data.url) {
+                    uploadedImageUrls.push(imageResponse.data.data.url);
+                } else {
+                    throw new Error('Image upload failed - no URL returned');
+                }
+            }
+
+            if (uploadedImageUrls.length > 0) {
                 const ticketData = {
                     ...data,
-                    image: imageUrl,
+                    image: uploadedImageUrls[0], // Primary image
+                    images: uploadedImageUrls, // All images
                     createAt: new Date(),
                     status: 'pending'
                 };
@@ -138,7 +172,7 @@ const AddTicket = () => {
                     throw new Error('Failed to save ticket data');
                 }
             } else {
-                throw new Error('Image upload failed - no URL returned');
+                throw new Error('No images were uploaded successfully');
             }
 
         } catch (error) {
@@ -370,40 +404,75 @@ const AddTicket = () => {
                             <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-2xl text-white shadow-lg">
                                 <IoCloudUpload />
                             </div>
-                            <h2 className="text-2xl font-semibold  m-0">Ticket Image</h2>
+                            <div className="flex-1">
+                                <h2 className="text-2xl font-semibold m-0">Ticket Images</h2>
+                                <p className="text-sm text-gray-600 m-0 mt-1">Upload up to 5 images ({selectedImages.length}/5)</p>
+                            </div>
                         </div>
 
                         <div className="mt-4">
-                            <div className="relative">
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImageChange}
-                                    id="image-upload"
-                                    className="hidden"
-                                />
-                                
-                                <label htmlFor="image-upload" className="block cursor-pointer">
-                                    {imagePreview ? (
-                                        <div className="relative w-full h-52 rounded-xl overflow-hidden border-2 border-dashed border-gray-200 group">
-                                            <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
-                                            <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center gap-2 text-white opacity-0 transition-opacity group-hover:opacity-100">
-                                                <IoCloudUpload className="text-3xl" />
-                                                <span>Click to change image</span>
+                            {/* Image Previews Grid */}
+                            {imagePreviews.length > 0 && (
+                                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">
+                                    {imagePreviews.map((preview, index) => (
+                                        <div key={index} className="relative group">
+                                            <div className="relative w-full h-40 rounded-xl overflow-hidden border-2 border-gray-200">
+                                                <img src={preview} alt={`Preview ${index + 1}`} className="w-full h-full object-cover" />
+                                                {index === 0 && (
+                                                    <div className="absolute top-2 left-2 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-lg">
+                                                        Primary
+                                                    </div>
+                                                )}
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeImage(index)}
+                                                    className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                                                >
+                                                    ×
+                                                </button>
                                             </div>
                                         </div>
-                                    ) : (
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* Upload Button */}
+                            {selectedImages.length < 5 && (
+                                <div className="relative">
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        multiple
+                                        onChange={handleImageChange}
+                                        id="image-upload"
+                                        className="hidden"
+                                    />
+                                    
+                                    <label htmlFor="image-upload" className="block cursor-pointer">
                                         <div className="flex flex-col items-center justify-center gap-4 px-8 py-12 border-2 border-dashed border-gray-300 rounded-xl hover:text-black transition-all hover:border-orange-500 hover:bg-orange-50">
                                             <IoCloudUpload className="text-5xl text-gray-400" />
-                                            <div className="text-lg  text-center">
+                                            <div className="text-lg text-center">
                                                 <strong className="text-orange-500">Click to upload</strong> or drag and drop
                                             </div>
-                                            <div className="text-sm text-gray-600">PNG, JPG, GIF up to 10MB</div>
+                                            <div className="text-sm text-gray-600">PNG, JPG, GIF up to 10MB each</div>
+                                            <div className="text-xs text-gray-500">You can select multiple images at once</div>
                                         </div>
-                                    )}
-                                </label>
-                            </div>
-                            {!selectedImage && <span className="text-red-500 text-xs mt-1 flex items-center gap-1 before:content-['⚠']">Ticket image is required</span>}
+                                    </label>
+                                </div>
+                            )}
+                            
+                            {selectedImages.length === 0 && (
+                                <span className="text-red-500 text-xs mt-2 flex items-center gap-1 before:content-['⚠']">
+                                    At least one ticket image is required
+                                </span>
+                            )}
+                            
+                            {selectedImages.length === 5 && (
+                                <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3">
+                                    <IoCheckmarkCircle className="text-green-600 text-2xl" />
+                                    <span className="text-green-700 font-medium">Maximum images uploaded (5/5)</span>
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -452,7 +521,7 @@ const AddTicket = () => {
                     <div className="flex flex-col items-center gap-4 mt-12 pt-8 border-t-2 border-gray-100">
                         <button 
                             type="submit" 
-                            disabled={isSubmitting || !selectedImage}
+                            disabled={isSubmitting || selectedImages.length === 0}
                             className="flex items-center gap-3 px-12 py-5 bg-gradient-to-br from-orange-500 to-orange-600 text-white border-none rounded-full text-lg font-semibold cursor-pointer transition-all shadow-xl hover:not(:disabled):-translate-y-1 hover:not(:disabled):shadow-2xl disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none md:w-full md:justify-center"
                         >
                             {isSubmitting ? (

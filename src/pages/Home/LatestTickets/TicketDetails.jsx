@@ -18,10 +18,12 @@ import {
     FaShip,
     FaWifi,
     FaCoffee,
-    FaSnowflake
+    FaSnowflake,
+    FaChevronLeft,
+    FaChevronRight
 } from "react-icons/fa";
 import { IoPricetagsSharp } from "react-icons/io5";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import Countdown from "react-countdown";
 import useAuth from "../../../hook/useAuth";
@@ -33,6 +35,7 @@ const TicketDetails = () => {
     const ticketModalRef = useRef(null);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const { data: ticket = [], isLoading } = useQuery({
         queryKey: ["ticketDetails", id],
@@ -109,6 +112,19 @@ const TicketDetails = () => {
     const isExpired = new Date(ticket.departureDateTime) < new Date();
     const targetDateTime = ticket.departureDateTime;
 
+    // Get all images (support both old single image and new multiple images)
+    const ticketImages = ticket.images && ticket.images.length > 0 
+        ? ticket.images 
+        : [ticket.image];
+
+    const nextImage = () => {
+        setCurrentImageIndex((prev) => (prev + 1) % ticketImages.length);
+    };
+
+    const prevImage = () => {
+        setCurrentImageIndex((prev) => (prev - 1 + ticketImages.length) % ticketImages.length);
+    };
+
     const countdownRenderer = ({ days, hours, minutes, seconds, completed }) => {
         if (completed) {
             return (
@@ -170,7 +186,7 @@ const TicketDetails = () => {
     const TransportIcon = transportIcons[ticket.transport] || FaBus;
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4">
+        <div className="min-h-screen b py-8 px-4">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600"></div>
@@ -193,14 +209,52 @@ const TicketDetails = () => {
 
                 {/* Main Ticket Card */}
                 <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100" data-aos="fade-up" data-aos-delay="200">
-                    {/* Hero Image Section */}
-                    <div className="relative h-80 overflow-hidden">
+                    {/* Hero Image Section with Gallery */}
+                    <div className="relative h-80 overflow-hidden group">
                         <img
-                            src={ticket.image}
-                            alt={ticket.ticketTitle}
-                            className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                            src={ticketImages[currentImageIndex]}
+                            alt={`${ticket.ticketTitle} - Image ${currentImageIndex + 1}`}
+                            className="w-full h-full object-cover transition-transform duration-700"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                        
+                        {/* Image Navigation - Only show if multiple images */}
+                        {ticketImages.length > 1 && (
+                            <>
+                                <button
+                                    onClick={prevImage}
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+                                >
+                                    <FaChevronLeft size={20} />
+                                </button>
+                                <button
+                                    onClick={nextImage}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+                                >
+                                    <FaChevronRight size={20} />
+                                </button>
+
+                                {/* Image Counter */}
+                                <div className="absolute bottom-6 right-6 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                    {currentImageIndex + 1} / {ticketImages.length}
+                                </div>
+
+                                {/* Thumbnail Navigation */}
+                                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    {ticketImages.map((_, index) => (
+                                        <button
+                                            key={index}
+                                            onClick={() => setCurrentImageIndex(index)}
+                                            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                                index === currentImageIndex 
+                                                    ? 'bg-white w-8' 
+                                                    : 'bg-white/50 hover:bg-white/75'
+                                            }`}
+                                        />
+                                    ))}
+                                </div>
+                            </>
+                        )}
                         
                         {/* Transport Badge */}
                         <div className="absolute top-6 left-6 bg-orange-500 text-white px-4 py-2 rounded-full flex items-center gap-2 font-semibold shadow-lg">
@@ -222,6 +276,31 @@ const TicketDetails = () => {
                             Available
                         </div>
                     </div>
+
+                    {/* Thumbnail Gallery - Below main image */}
+                    {ticketImages.length > 1 && (
+                        <div className="px-8 py-4 bg-gray-50 border-b border-gray-200">
+                            <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-orange-500 scrollbar-track-gray-200">
+                                {ticketImages.map((img, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => setCurrentImageIndex(index)}
+                                        className={`flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all duration-300 ${
+                                            index === currentImageIndex 
+                                                ? 'border-orange-500 scale-105 shadow-lg' 
+                                                : 'border-gray-300 hover:border-orange-300 opacity-70 hover:opacity-100'
+                                        }`}
+                                    >
+                                        <img
+                                            src={img}
+                                            alt={`Thumbnail ${index + 1}`}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
 
                     {/* Content Section */}
                     <div className="p-8 space-y-8">
