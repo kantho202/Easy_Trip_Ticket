@@ -309,7 +309,7 @@ const TicketDetails = () => {
 
                     {/* Thumbnail Gallery - Below main image */}
                     {ticketImages.length > 1 && (
-                        <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
+                        <div className="px-6 py-4  border-b border-gray-200">
                             <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-orange-500 scrollbar-track-gray-200">
                                 {ticketImages.map((img, index) => (
                                     <button
@@ -335,7 +335,7 @@ const TicketDetails = () => {
 
                         {/* Route Card */}
                         <div className=" rounded-3xl shadow-xl p-8 border border-gray-100" data-aos="fade-up" data-aos-delay="100">
-                            <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                            <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
                                 <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-white">
                                     <FaRoute />
                                 </div>
@@ -349,7 +349,7 @@ const TicketDetails = () => {
                                         </div>
                                         <div>
                                             <div className="text-sm text-orange-600 font-semibold uppercase tracking-wide">From</div>
-                                        <div className="text-lg font-bold text-gray-800">{ticket.from}</div>
+                                        <div className="text-lg font-bold ">{ticket.from}</div>
                                     </div>
                                 </div>
                                 
@@ -365,14 +365,14 @@ const TicketDetails = () => {
                                     </div>
                                     <div>
                                         <div className="text-sm text-orange-600 font-medium">To</div>
-                                        <div className="text-lg font-bold text-gray-800">{ticket.to}</div>
+                                        <div className="text-lg font-bold ">{ticket.to}</div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         {/* Details Grid */}
-                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="grid md:grid-cols-2 my-5 lg:grid-cols-4 gap-6">
                             <div className=" rounded-xl p-4 border border-gray-200 hover:border-orange-300 transition-colors duration-300">
                                 <div className="flex items-center gap-3 mb-2">
                                     <div className="bg-blue-500 text-white rounded-lg p-2">
@@ -380,7 +380,7 @@ const TicketDetails = () => {
                                     </div>
                                     <div className="text-sm text-gray-600 font-medium">Organizer</div>
                                 </div>
-                                <div className="font-semibold text-gray-800">{ticket.name}</div>
+                                <div className="font-semibold ">{ticket.name}</div>
                             </div>
 
                             <div className=" rounded-xl p-4 border border-gray-200 hover:border-orange-300 transition-colors duration-300">
@@ -390,7 +390,7 @@ const TicketDetails = () => {
                                     </div>
                                     <div className="text-sm text-gray-600 font-medium">Available</div>
                                 </div>
-                                <div className="font-semibold text-gray-800">{ticket.ticketQuantity} seats</div>
+                                <div className="font-semibold ">{ticket.ticketQuantity} seats</div>
                             </div>
 
                             <div className=" rounded-xl p-4 border border-gray-200 hover:border-orange-300 transition-colors duration-300">
@@ -400,7 +400,7 @@ const TicketDetails = () => {
                                     </div>
                                     <div className="text-sm text-gray-600 font-medium">Date</div>
                                 </div>
-                                <div className="font-semibold text-gray-800 text-sm">{date}</div>
+                                <div className="font-semibold  text-sm">{date}</div>
                             </div>
 
                             <div className=" rounded-xl p-4 border border-gray-200 hover:border-orange-300 transition-colors duration-300">
@@ -410,13 +410,13 @@ const TicketDetails = () => {
                                     </div>
                                     <div className="text-sm text-gray-600 font-medium">Time</div>
                                 </div>
-                                <div className="font-semibold text-gray-800">{time}</div>
+                                <div className="font-semibold ">{time}</div>
                             </div>
                         </div>
 
                         {/* Perks Section */}
                         {ticket.perks?.length > 0 && (
-                            <div className="bg-green-50 rounded-2xl p-6 border border-green-200">
+                            <div className="bg-green-50 rounded-2xl my-5 p-6 border border-green-200">
                                 <h3 className="text-lg font-semibold text-green-800 mb-4 flex items-center gap-2">
                                     <FaCheckCircle />
                                     Included Amenities
