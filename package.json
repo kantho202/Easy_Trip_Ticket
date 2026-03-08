@@ -36,6 +36,7 @@
     "recharts": "^3.6.0",
     "styled-components": "^6.1.19",
     "sweetalert2": "^11.26.4",
+    "swiper": "^12.1.2",
     "tailwindcss": "^4.1.17"
   },
   "devDependencies": {

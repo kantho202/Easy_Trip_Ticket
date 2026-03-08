@@ -22,11 +22,16 @@ import {
     FaChevronLeft,
     FaChevronRight
 } from "react-icons/fa";
-import { IoPricetagsSharp } from "react-icons/io5";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Countdown from "react-countdown";
 import useAuth from "../../../hook/useAuth";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
 
 const TicketDetails = () => {
     const { id } = useParams();
@@ -36,6 +41,7 @@ const TicketDetails = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [showFullImage, setShowFullImage] = useState(false);
 
     const { data: ticket = [], isLoading } = useQuery({
         queryKey: ["ticketDetails", id],
@@ -125,6 +131,17 @@ const TicketDetails = () => {
         setCurrentImageIndex((prev) => (prev - 1 + ticketImages.length) % ticketImages.length);
     };
 
+    // Auto-slide functionality
+    useEffect(() => {
+        if (ticketImages.length <= 1) return; // Don't auto-slide if only one image
+
+        const interval = setInterval(() => {
+            nextImage();
+        }, 5000); // Change image every 5 seconds
+
+        return () => clearInterval(interval); // Cleanup on unmount
+    }, [ticketImages.length]); // Re-run if number of images changes
+
     const countdownRenderer = ({ days, hours, minutes, seconds, completed }) => {
         if (completed) {
             return (
@@ -186,18 +203,18 @@ const TicketDetails = () => {
     const TransportIcon = transportIcons[ticket.transport] || FaBus;
 
     return (
-        <div className="min-h-screen b py-8 px-4">
+        <div className="min-h-screen py-8 px-4">
             {/* Background Pattern */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600"></div>
             </div>
 
-            <div className="max-w-4xl mx-auto relative z-10">
+            <div className="max-w-7xl mx-auto relative z-10">
                 {/* Back Button */}
                 <div className="mb-8" data-aos="fade-down">
                     <Link to="/">
-                        <button className="group bg-white hover:bg-orange-50 border-2 border-orange-200 hover:border-orange-300 rounded-2xl px-6 py-3 flex items-center gap-3 transition-all duration-300 shadow-lg hover:shadow-xl">
-                            <div className="bg-orange-500 group-hover:bg-orange-600 text-white rounded-xl p-2 transition-colors duration-300">
+                        <button className="group bg-white/90 backdrop-blur-sm hover:bg-white border border-gray-200 hover:border-orange-400 rounded-2xl px-6 py-3 flex items-center gap-3 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+                            <div className="bg-gradient-to-r from-orange-500 to-orange-600 group-hover:from-orange-600 group-hover:to-orange-700 text-white rounded-xl p-2 transition-all duration-300">
                                 <FaArrowLeft size={16} />
                             </div>
                             <span className="font-semibold text-gray-700 group-hover:text-orange-600 transition-colors duration-300">
@@ -208,78 +225,91 @@ const TicketDetails = () => {
                 </div>
 
                 {/* Main Ticket Card */}
-                <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100" data-aos="fade-up" data-aos-delay="200">
-                    {/* Hero Image Section with Gallery */}
-                    <div className="relative h-80 overflow-hidden group">
+                <div className=" rounded-3xl shadow-2xl overflow-hidden border border-gray-100" data-aos="fade-up" data-aos-delay="200">
+                        {/* Image Gallery Card */}
+                        <div className=" rounded-3xl shadow-2xl overflow-hidden border border-gray-100" data-aos="fade-up">
+                            {/* Hero Image Section with Gallery */}
+                            <div className="relative h-96 overflow-hidden group">
                         <img
                             src={ticketImages[currentImageIndex]}
                             alt={`${ticket.ticketTitle} - Image ${currentImageIndex + 1}`}
-                            className="w-full h-full object-cover transition-transform duration-700"
+                            className="w-full h-full object-cover transition-transform duration-700 cursor-pointer hover:scale-105"
+                            onClick={() => setShowFullImage(true)}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                        
-                        {/* Image Navigation - Only show if multiple images */}
-                        {ticketImages.length > 1 && (
-                            <>
-                                <button
-                                    onClick={prevImage}
-                                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
-                                >
-                                    <FaChevronLeft size={20} />
-                                </button>
-                                <button
-                                    onClick={nextImage}
-                                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
-                                >
-                                    <FaChevronRight size={20} />
-                                </button>
-
-                                {/* Image Counter */}
-                                <div className="absolute bottom-6 right-6 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
-                                    {currentImageIndex + 1} / {ticketImages.length}
-                                </div>
-
-                                {/* Thumbnail Navigation */}
-                                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    {ticketImages.map((_, index) => (
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                                
+                                {/* Image Navigation - Only show if multiple images */}
+                                {ticketImages.length > 1 && (
+                                    <>
                                         <button
-                                            key={index}
-                                            onClick={() => setCurrentImageIndex(index)}
-                                            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                                index === currentImageIndex 
-                                                    ? 'bg-white w-8' 
-                                                    : 'bg-white/50 hover:bg-white/75'
-                                            }`}
-                                        />
-                                    ))}
+                                            onClick={prevImage}
+                                            className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+                                        >
+                                            <FaChevronLeft size={20} />
+                                        </button>
+                                        <button
+                                            onClick={nextImage}
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 rounded-full p-3 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+                                        >
+                                            <FaChevronRight size={20} />
+                                        </button>
+
+                                        {/* Image Counter */}
+                                        <div className="absolute bottom-6 right-6 bg-black/70 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-semibold">
+                                            {currentImageIndex + 1} / {ticketImages.length}
+                                        </div>
+
+                                        {/* Dot Navigation */}
+                                        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            {ticketImages.map((_, index) => (
+                                                <button
+                                                    key={index}
+                                                    onClick={() => setCurrentImageIndex(index)}
+                                                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                                        index === currentImageIndex 
+                                                            ? 'bg-white w-8' 
+                                                            : 'bg-white/50 hover:bg-white/75'
+                                                    }`}
+                                                />
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
+                                
+                                {/* Badges Overlay */}
+                                <div className="absolute top-6 left-6 flex flex-col gap-3">
+                                    <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-full flex items-center gap-2 font-semibold shadow-lg backdrop-blur-sm">
+                                        <TransportIcon size={16} />
+                                        {ticket.transport}
+                                    </div>
+                                    <div className="bg-green-500 text-white px-4 py-2 rounded-full flex items-center gap-2 font-semibold shadow-lg backdrop-blur-sm">
+                                        <FaCheckCircle size={14} />
+                                        Available
+                                    </div>
                                 </div>
-                            </>
-                        )}
-                        
-                        {/* Transport Badge */}
-                        <div className="absolute top-6 left-6 bg-orange-500 text-white px-4 py-2 rounded-full flex items-center gap-2 font-semibold shadow-lg">
-                            <TransportIcon size={16} />
-                            {ticket.transport}
-                        </div>
 
-                        {/* Price Badge */}
-                        <div className="absolute top-6 right-6 bg-white/95 backdrop-blur-sm text-orange-600 px-4 py-2 rounded-full shadow-lg">
-                            <div className="text-center">
-                                <div className="text-2xl font-bold">৳{ticket.price}</div>
-                                <div className="text-xs opacity-80">per person</div>
+                                {/* Title Overlay */}
+                                <div className="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-black/90 to-transparent">
+                                    <h1 className="text-3xl lg:text-4xl font-bold text-white mb-3 drop-shadow-lg">
+                                        {ticket.ticketTitle}
+                                    </h1>
+                                    <div className="flex items-center gap-4 text-white/90">
+                                        <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
+                                            <FaStar className="text-yellow-400" />
+                                            <span className="font-semibold">4.8</span>
+                                        </div>
+                                        <div className="w-1 h-1 bg-white/50 rounded-full"></div>
+                                        <div className="flex items-center gap-2">
+                                            <FaUser size={14} />
+                                            <span className="font-medium">{ticket.name}</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-
-                        {/* Status Badge */}
-                        <div className="absolute bottom-6 left-6 bg-green-500 text-white px-4 py-2 rounded-full flex items-center gap-2 font-semibold shadow-lg">
-                            <FaCheckCircle size={14} />
-                            Available
-                        </div>
-                    </div>
 
                     {/* Thumbnail Gallery - Below main image */}
                     {ticketImages.length > 1 && (
-                        <div className="px-8 py-4 bg-gray-50 border-b border-gray-200">
+                        <div className="px-6 py-4 bg-gray-50 border-b border-gray-200">
                             <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-orange-500 scrollbar-track-gray-200">
                                 {ticketImages.map((img, index) => (
                                     <button
@@ -301,33 +331,24 @@ const TicketDetails = () => {
                             </div>
                         </div>
                     )}
-
-                    {/* Content Section */}
-                    <div className="p-8 space-y-8">
-                        {/* Header */}
-                        <div className="flex justify-between items-start gap-4">
-                            <h1 className="text-4xl font-bold text-gray-800 leading-tight">
-                                {ticket.ticketTitle}
-                            </h1>
-                            <div className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full flex items-center gap-1 font-semibold text-sm">
-                                <FaStar size={14} />
-                                4.8
-                            </div>
                         </div>
 
-                        {/* Route Section */}
-                        <div className="bg-gradient-to-r from-orange-50 to-orange-100 rounded-2xl p-6 border border-orange-200">
-                            <h3 className="text-lg font-semibold text-orange-800 mb-4 flex items-center gap-2">
-                                <FaRoute />
+                        {/* Route Card */}
+                        <div className=" rounded-3xl shadow-xl p-8 border border-gray-100" data-aos="fade-up" data-aos-delay="100">
+                            <h3 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                                <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-white">
+                                    <FaRoute />
+                                </div>
                                 Journey Route
                             </h3>
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-3">
-                                    <div className="bg-orange-500 text-white rounded-full p-3">
-                                        <FaMap size={20} />
-                                    </div>
-                                    <div>
-                                        <div className="text-sm text-orange-600 font-medium">From</div>
+                            <div className=" rounded-2xl p-6 border-2 border-orange-200">
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-4">
+                                        <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-2xl p-4 shadow-lg">
+                                            <FaMap size={24} />
+                                        </div>
+                                        <div>
+                                            <div className="text-sm text-orange-600 font-semibold uppercase tracking-wide">From</div>
                                         <div className="text-lg font-bold text-gray-800">{ticket.from}</div>
                                     </div>
                                 </div>
@@ -352,7 +373,7 @@ const TicketDetails = () => {
 
                         {/* Details Grid */}
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 hover:border-orange-300 transition-colors duration-300">
+                            <div className=" rounded-xl p-4 border border-gray-200 hover:border-orange-300 transition-colors duration-300">
                                 <div className="flex items-center gap-3 mb-2">
                                     <div className="bg-blue-500 text-white rounded-lg p-2">
                                         <FaUser size={16} />
@@ -362,7 +383,7 @@ const TicketDetails = () => {
                                 <div className="font-semibold text-gray-800">{ticket.name}</div>
                             </div>
 
-                            <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 hover:border-orange-300 transition-colors duration-300">
+                            <div className=" rounded-xl p-4 border border-gray-200 hover:border-orange-300 transition-colors duration-300">
                                 <div className="flex items-center gap-3 mb-2">
                                     <div className="bg-green-500 text-white rounded-lg p-2">
                                         <FaTicketAlt size={16} />
@@ -372,7 +393,7 @@ const TicketDetails = () => {
                                 <div className="font-semibold text-gray-800">{ticket.ticketQuantity} seats</div>
                             </div>
 
-                            <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 hover:border-orange-300 transition-colors duration-300">
+                            <div className=" rounded-xl p-4 border border-gray-200 hover:border-orange-300 transition-colors duration-300">
                                 <div className="flex items-center gap-3 mb-2">
                                     <div className="bg-purple-500 text-white rounded-lg p-2">
                                         <FaCalendar size={16} />
@@ -382,7 +403,7 @@ const TicketDetails = () => {
                                 <div className="font-semibold text-gray-800 text-sm">{date}</div>
                             </div>
 
-                            <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 hover:border-orange-300 transition-colors duration-300">
+                            <div className=" rounded-xl p-4 border border-gray-200 hover:border-orange-300 transition-colors duration-300">
                                 <div className="flex items-center gap-3 mb-2">
                                     <div className="bg-red-500 text-white rounded-lg p-2">
                                         <FaClock size={16} />
@@ -515,6 +536,69 @@ const TicketDetails = () => {
                         <button>close</button>
                     </form>
                 </dialog>
+
+                {/* Full Image Modal */}
+                {showFullImage && (
+                    <div 
+                        className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
+                        onClick={() => setShowFullImage(false)}
+                    >
+                        <button
+                            onClick={() => setShowFullImage(false)}
+                            className="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white rounded-full p-3 transition-all duration-300 backdrop-blur-sm z-10"
+                        >
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+
+                        {/* Navigation Buttons */}
+                        {ticketImages.length > 1 && (
+                            <>
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        prevImage();
+                                    }}
+                                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full p-4 transition-all duration-300 backdrop-blur-sm z-10"
+                                >
+                                    <FaChevronLeft size={24} />
+                                </button>
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        nextImage();
+                                    }}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full p-4 transition-all duration-300 backdrop-blur-sm z-10"
+                                >
+                                    <FaChevronRight size={24} />
+                                </button>
+                            </>
+                        )}
+
+                        {/* Image Counter */}
+                        {ticketImages.length > 1 && (
+                            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-black/50 text-white px-4 py-2 rounded-full text-sm font-semibold backdrop-blur-sm">
+                                {currentImageIndex + 1} / {ticketImages.length}
+                            </div>
+                        )}
+
+                        {/* Full Image */}
+                        <div className="relative max-w-7xl max-h-[90vh] w-full h-full flex items-center justify-center">
+                            <img
+                                src={ticketImages[currentImageIndex]}
+                                alt={`${ticket.ticketTitle} - Full view`}
+                                className="max-w-full max-h-full object-contain rounded-lg shadow-2xl"
+                                onClick={(e) => e.stopPropagation()}
+                            />
+                        </div>
+
+                        {/* Image Info */}
+                        <div className="absolute bottom-8 right-8 bg-black/50 text-white px-4 py-2 rounded-xl backdrop-blur-sm">
+                            <p className="text-sm font-medium">Click anywhere to close</p>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
