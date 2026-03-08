@@ -31,9 +31,9 @@ import {
 } from 'react-icons/fa';
 
 const AddTicket = () => {
-    const serviceCenter = useLoaderData();
-    const regionsDuplicate = serviceCenter.map(c => c.region);
-    const regions = [...new Set(regionsDuplicate)];
+    // const serviceCenter = useLoaderData();
+    // const regionsDuplicate = serviceCenter.map(c => c.region);
+    // const regions = [...new Set(regionsDuplicate)];
     const navigate = useNavigate();
     const axiosSecure = useAxiosSecure();
     const { user, loading } = useAuth();
@@ -286,7 +286,7 @@ const AddTicket = () => {
                             <div className="flex flex-col gap-2">
                                 <label className="flex items-center gap-2 font-semibold  text-sm mb-2">
                                     <IoPricetag className="text-orange-500 text-base" />
-                                    Price (৳)
+                                    Price ($)
                                 </label>
                                 <input
                                     type="number"

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../hook/useAxiosecure';
 import { Link } from 'react-router';
+import { useState, useEffect } from 'react';
 import {
     FaBus,
     FaTrain,
@@ -18,6 +19,9 @@ import { LuCalendar, LuClock, LuMapPin, LuUsers } from 'react-icons/lu';
 const LatestTickets = () => {
     const axiosSecure = useAxiosSecure();
 
+    // State for managing current image index for each ticket
+    const [currentImageIndices, setCurrentImageIndices] = useState({});
+
     const { data: homeTicket = [] } = useQuery({
         queryKey: ['homeTicket'],
         queryFn: async () => {
@@ -25,6 +29,39 @@ const LatestTickets = () => {
             return res.data;
         }
     });
+
+    // Initialize image indices when tickets are loaded
+    useEffect(() => {
+        if (homeTicket.length > 0) {
+            const initialIndices = {};
+            homeTicket.forEach(ticket => {
+                initialIndices[ticket._id] = 0;
+            });
+            setCurrentImageIndices(initialIndices);
+        }
+    }, [homeTicket]);
+
+    // Auto-slide functionality for each ticket
+    useEffect(() => {
+        const intervals = {};
+
+        homeTicket.forEach(ticket => {
+            const images = ticket.images || [ticket.image];
+            if (images.length > 1) {
+                intervals[ticket._id] = setInterval(() => {
+                    setCurrentImageIndices(prev => ({
+                        ...prev,
+                        [ticket._id]: (prev[ticket._id] + 1) % images.length
+                    }));
+                }, 5000); // Change image every 5 seconds
+            }
+        });
+
+        // Cleanup intervals on unmount
+        return () => {
+            Object.values(intervals).forEach(interval => clearInterval(interval));
+        };
+    }, [homeTicket]);
 
     const transportIcons = {
         Bus: FaBus,
@@ -64,15 +101,19 @@ const LatestTickets = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-6 items-stretch">
                     {homeTicket.map((ticket, index) => {
                         const TransportIcon = transportIcons[ticket.transport] || FaBus;
+                        const images = ticket.images || [ticket.image];
+                        const currentImageIndex = currentImageIndices[ticket._id] || 0;
+                        const currentImage = images[currentImageIndex] || ticket.image;
+
                         return (
                             <div key={ticket._id} data-aos="fade-up" data-aos-duration="800" data-aos-delay={index * 100} className="h-full flex flex-col">
                                 <div className=" rounded-[10px] overflow-hidden shadow-2xl transition-all duration-500 hover:-translate-y-4 hover:scale-100 hover:shadow-3xl border border-white/20 flex flex-col h-full group">
                                     {/* Image Container */}
                                     <div className="relative h-64 overflow-hidden flex-shrink-0">
                                         <img
-                                            src={ticket.image}
+                                            src={currentImage}
                                             alt={ticket.ticketTitle}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                            className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/60"></div>
 
@@ -80,6 +121,22 @@ const LatestTickets = () => {
                                          <div className="absolute top-4 right-4 px-4 py-2 bg-white/95 text-orange-500 rounded-full font-bold text-lg backdrop-blur-md">
                                             ${ticket.price}
                                         </div>
+
+                                        {/* Image Indicators */}
+                                        {images.length > 1 && (
+                                            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                                                {images.map((_, imgIndex) => (
+                                                    <div
+                                                        key={imgIndex}
+                                                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                                            imgIndex === currentImageIndex
+                                                                ? 'bg-white scale-125'
+                                                                : 'bg-white/50'
+                                                        }`}
+                                                    />
+                                                ))}
+                                            </div>
+                                        )}
 
                                         {/* Status Badge */}
                                         {/* <div className="absolute top-6 left-6 bg-green-500/90 text-white px-3 py-2 rounded-2xl text-xs font-semibold backdrop-blur-md border border-white/20">
@@ -215,6 +272,6 @@ const LatestTickets = () => {
             </div>
         </div>
     );
-};
+}
 
 export default LatestTickets;
