@@ -88,7 +88,7 @@ const Contact = () => {
     ];
 
     return (
-        <div className="py-16 px-0 lg:px-4  min-h-screen">
+        <div className="py-16 px-4 lg:px-4  min-h-screen">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-12">
