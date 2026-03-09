@@ -449,7 +449,7 @@ const AddTicket = () => {
                                     />
                                     
                                     <label htmlFor="image-upload" className="block cursor-pointer">
-                                        <div className="flex flex-col items-center justify-center gap-4 px-8 py-12 border-2 border-dashed border-gray-300 rounded-xl hover:text-black transition-all hover:border-orange-500 hover:bg-orange-50">
+                                        <div className="flex flex-col items-center justify-center gap-4 px-8 py-12 border-2 border-dashed border-gray-300 rounded-xl  transition-all hover:border-orange-500 ">
                                             <IoCloudUpload className="text-5xl text-gray-400" />
                                             <div className="text-lg text-center">
                                                 <strong className="text-orange-500">Click to upload</strong> or drag and drop
