@@ -189,7 +189,7 @@ const Advertisement = () => {
 
                                     {/* Card Content */}
                                     <div className="p-4 lg:p-8">
-                                        {/* <h3 className="text-2xl font-bold  mb-4">{ticket.ticketTitle}</h3> */}
+                                        <h3 className="text-2xl font-bold  mb-4">{ticket.ticketTitle}</h3>
 
                                         <div className="flex items-center gap-4 mb-6 px-4 py-4  rounded-xl">
                                             <div className="flex items-center gap-2 font-semibold ">

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useRef, useState } from 'react';
+import { useState, useEffect } from 'react';
 import useAuth from '../../../hook/useAuth';
 import useAxiosSecure from '../../../hook/useAxiosecure';
 import Swal from 'sweetalert2';
@@ -36,6 +36,7 @@ const MyAddedTickets = () => {
     const [selectedTicket, setSelectedTicket] = useState(null);
     const [isUpdating, setIsUpdating] = useState(false);
     const [imagePreview, setImagePreview] = useState(null);
+    const [imageIndices, setImageIndices] = useState({});
 
     const { data: tickets = [], refetch, isLoading } = useQuery({
         queryKey: ['tickets', user?.email],
@@ -45,7 +46,51 @@ const MyAddedTickets = () => {
         }
     });
 
-    const ticketModalRef = useRef(null);
+    // Initialize image indices for all tickets
+    useEffect(() => {
+        if (tickets.length > 0) {
+            const initialIndices = {};
+            tickets.forEach(ticket => {
+                initialIndices[ticket._id] = 0;
+            });
+            setImageIndices(initialIndices);
+        }
+    }, [tickets]);
+
+    // Auto-slide effect for each ticket
+    useEffect(() => {
+        const intervals = tickets.map(ticket => {
+            const images = ticket.images || [ticket.image];
+            if (images.length > 1) {
+                return setInterval(() => {
+                    setImageIndices(prev => ({
+                        ...prev,
+                        [ticket._id]: ((prev[ticket._id] || 0) + 1) % images.length
+                    }));
+                }, 5000);
+            }
+            return null;
+        }).filter(Boolean);
+
+        return () => intervals.forEach(interval => clearInterval(interval));
+    }, [tickets]);
+
+    const handlePrevImage = (e, ticketId, images) => {
+        e.preventDefault();
+        setImageIndices(prev => ({
+            ...prev,
+            [ticketId]: prev[ticketId] === 0 ? images.length - 1 : prev[ticketId] - 1
+        }));
+    };
+
+    const handleNextImage = (e, ticketId, images) => {
+        e.preventDefault();
+        setImageIndices(prev => ({
+            ...prev,
+            [ticketId]: (prev[ticketId] + 1) % images.length
+        }));
+    };
+
     const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm();
 
     const perks = [
@@ -65,7 +110,9 @@ const MyAddedTickets = () => {
 
     const handleTicketShowModal = (ticket) => {
         setSelectedTicket(ticket);
-        setImagePreview(ticket.image);
+        // Set all images or fallback to single image
+        const allImages = ticket.images || [ticket.image];
+        setImagePreview(allImages);
 
         setValue('name', ticket.name);
         setValue('ticketTitle', ticket.ticketTitle);
@@ -81,7 +128,15 @@ const MyAddedTickets = () => {
             setValue('perks', ticket.perks);
         }
 
-        ticketModalRef.current.showModal();
+        // Open DaisyUI modal
+        document.getElementById('update_ticket_modal').showModal();
+    };
+
+    const closeModal = () => {
+        document.getElementById('update_ticket_modal').close();
+        setSelectedTicket(null);
+        setImagePreview(null);
+        reset();
     };
 
     const handleImageChange = (e) => {
@@ -89,7 +144,8 @@ const MyAddedTickets = () => {
         if (file) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                setImagePreview(reader.result);
+                // Keep it as a single image for the new upload preview
+                setImagePreview([reader.result]);
             };
             reader.readAsDataURL(file);
         }
@@ -123,9 +179,7 @@ const MyAddedTickets = () => {
             if (res.data.modifiedCount > 0) {
                 toast.success('Ticket updated successfully!');
                 refetch();
-                ticketModalRef.current.close();
-                reset();
-                setImagePreview(null);
+                closeModal();
             } else {
                 toast.info('No changes were made.');
             }
@@ -231,11 +285,38 @@ const MyAddedTickets = () => {
                 <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 md:grid-cols-2">
                     {tickets.map(ticket => {
                         const TransportIcon = transportIcons[ticket.transport] || FaBus;
+                        const images = ticket.images || [ticket.image];
+                        const currentImageIndex = imageIndices[ticket._id] || 0;
+                        const currentImage = images[currentImageIndex] || ticket.image;
+
                         return (
                             <div key={ticket._id} className=" rounded-xl overflow-hidden shadow-md border border-gray-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
                                 <div className="relative h-52 overflow-hidden">
-                                    <img src={ticket.image} alt={ticket.ticketTitle} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
+                                    <img 
+                                        src={currentImage} 
+                                        alt={ticket.ticketTitle} 
+                                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" 
+                                    />
                                     <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30"></div>
+
+                                    {/* Navigation Arrows - Only show if multiple images */}
+                                    {images.length > 1 && (
+                                        <>
+                                            <button
+                                                onClick={(e) => handlePrevImage(e, ticket._id, images)}
+                                                className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all z-10 text-lg font-bold"
+                                            >
+                                                ‹
+                                            </button>
+                                            <button
+                                                onClick={(e) => handleNextImage(e, ticket._id, images)}
+                                                className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all z-10 text-lg font-bold"
+                                            >
+                                                ›
+                                            </button>
+                                        </>
+                                    )}
+
                                     <div className={`absolute top-4 left-4 flex items-center gap-2 px-4 py-2 ${getStatusColor(ticket.status)} text-white rounded-full text-xs font-semibold capitalize backdrop-blur-md`}>
                                         {getStatusIcon(ticket.status)}
                                         {ticket.status || 'pending'}
@@ -243,6 +324,22 @@ const MyAddedTickets = () => {
                                     <div className="absolute top-4 right-4 px-4 py-2 bg-white/95 text-orange-500 rounded-full font-bold text-lg backdrop-blur-md">
                                         ${ticket.price}
                                     </div>
+
+                                    {/* Image Indicators */}
+                                    {images.length > 1 && (
+                                        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                                            {images.map((_, imgIndex) => (
+                                                <div
+                                                    key={imgIndex}
+                                                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                                        imgIndex === currentImageIndex
+                                                            ? 'bg-white scale-125'
+                                                            : 'bg-white/50'
+                                                    }`}
+                                                />
+                                            ))}
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="p-4 lg:p-8">
@@ -351,19 +448,21 @@ const MyAddedTickets = () => {
             )}
 
 
-            {selectedTicket && (
-                <dialog ref={ticketModalRef} className="p-0 border-none rounded-3xl bg-transparent max-w-[90vw] max-h-[90vh] w-[1000px] backdrop:bg-black/50 backdrop:backdrop-blur-sm">
-                    <div className="bg-white rounded-3xl overflow-hidden shadow-2xl">
-                        <div className="flex items-center justify-between px-8 py-6 bg-gradient-to-r from-orange-500 to-orange-600 text-white">
-                            <h2 className="text-2xl font-bold m-0">Update Ticket</h2>
-                            <button
-                                onClick={() => ticketModalRef.current.close()}
-                                className="bg-white/20 border-none text-white w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-all hover:bg-white/30"
-                            >
-                                <LuX />
-                            </button>
-                        </div>
+            {/* Update Ticket Modal - Always rendered */}
+            <dialog id="update_ticket_modal" className="modal">
+                <div className="modal-box max-w-5xl p-0 rounded-3xl">
+                    <div className="flex items-center justify-between px-8 py-6 bg-gradient-to-r from-orange-500 to-orange-600 text-white">
+                        <h2 className="text-2xl font-bold m-0">Update Ticket</h2>
+                        <button
+                            type="button"
+                            onClick={closeModal}
+                            className="bg-white/20 border-none text-white w-10 h-10 rounded-full flex items-center justify-center cursor-pointer transition-all hover:bg-white/30"
+                        >
+                            <LuX />
+                        </button>
+                    </div>
 
+                    {selectedTicket && (
                         <div className="p-8 max-h-[70vh] overflow-y-auto">
                             <form onSubmit={handleSubmit(handleTicketUpdate)} className="flex flex-col gap-8">
                                 <div className="grid grid-cols-2 gap-8 md:grid-cols-1">
@@ -455,6 +554,22 @@ const MyAddedTickets = () => {
 
                                     <div className="flex flex-col gap-6">
                                         <div className="flex flex-col gap-2">
+                                            <label className="font-semibold text-gray-700 text-sm">Current Images</label>
+                                            {imagePreview && Array.isArray(imagePreview) && imagePreview.length > 0 && (
+                                                <div className="grid grid-cols-2 gap-3 mb-4">
+                                                    {imagePreview.map((img, index) => (
+                                                        <div key={index} className="relative w-full h-32 rounded-lg overflow-hidden border-2 border-gray-200">
+                                                            <img src={img} alt={`Preview ${index + 1}`} className="w-full h-full object-cover" />
+                                                            <div className="absolute top-2 right-2 bg-orange-500 text-white text-xs px-2 py-1 rounded-full font-semibold">
+                                                                {index + 1}
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className="flex flex-col gap-2">
                                             <label className="font-semibold text-gray-700 text-sm">Update Image</label>
                                             <div className="relative">
                                                 <input
@@ -466,20 +581,11 @@ const MyAddedTickets = () => {
                                                     id="update-image"
                                                 />
                                                 <label htmlFor="update-image" className="block cursor-pointer">
-                                                    {imagePreview ? (
-                                                        <div className="relative w-full h-40 rounded-lg overflow-hidden border-2 border-dashed border-gray-200 group">
-                                                            <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
-                                                            <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center gap-2 text-white opacity-0 transition-opacity group-hover:opacity-100">
-                                                                <LuImage />
-                                                                <span>Click to change</span>
-                                                            </div>
-                                                        </div>
-                                                    ) : (
-                                                        <div className="flex flex-col items-center justify-center gap-2 px-8 py-8 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 text-gray-600 transition-all hover:border-orange-500 hover:bg-white">
-                                                            <LuImage />
-                                                            <span>Click to upload new image</span>
-                                                        </div>
-                                                    )}
+                                                    <div className="flex flex-col items-center justify-center gap-2 px-8 py-6 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 text-gray-600 transition-all hover:border-orange-500 hover:bg-white">
+                                                        <LuImage className="text-2xl" />
+                                                        <span className="text-sm">Click to upload new image</span>
+                                                        <span className="text-xs text-gray-500">This will replace the first image</span>
+                                                    </div>
                                                 </label>
                                             </div>
                                         </div>
@@ -513,7 +619,7 @@ const MyAddedTickets = () => {
                                 <div className="flex gap-4 justify-end">
                                     <button
                                         type="button"
-                                        onClick={() => ticketModalRef.current.close()}
+                                        onClick={closeModal}
                                         className="px-6 py-3 bg-gray-100 text-gray-600 border-none rounded-lg font-semibold cursor-pointer transition-all hover:bg-gray-200"
                                     >
                                         Cancel
@@ -538,9 +644,12 @@ const MyAddedTickets = () => {
                                 </div>
                             </form>
                         </div>
-                    </div>
-                </dialog>
-            )}
+                    )}
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button onClick={closeModal}>close</button>
+                </form>
+            </dialog>
 
             <style jsx>{`
                 .focus\\:shadow-orange:focus {
