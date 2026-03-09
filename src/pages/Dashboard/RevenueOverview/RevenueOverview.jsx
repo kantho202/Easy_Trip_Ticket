@@ -148,8 +148,8 @@ const RevenueOverview = () => {
                 {statsData.map((stat, index) => (
                     <div
                         key={index}
-                        className=" p-8 rounded-2xl border border-gray-100 transition-all hover:-translate-y-2 hover:shadow-2xl"
-                    >
+                        className="p-4 lg:p-8 rounded-2xl border border-gray-100 transition-all hover:-translate-y-2 hover:shadow-2xl"
+                       >
                         <div className="flex justify-between items-center mb-6">
                             <div
                                 className="w-15 h-15 rounded-2xl flex items-center justify-center text-2xl text-white shadow-lg"
@@ -177,7 +177,7 @@ const RevenueOverview = () => {
             {/* Charts Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
                 {/* Area Chart */}
-                <div className=" rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className=" rounded-2xl p-4 lg:p-8 shadow-sm border border-gray-100">
                     <div className="mb-8">
                         <h3 className="text-2xl font-semibold  mb-2">Revenue Trend</h3>
                         <p className="text-gray-500 text-sm">Monthly performance overview</p>
@@ -217,7 +217,7 @@ const RevenueOverview = () => {
                 </div>
 
                 {/* Bar Chart */}
-                <div className=" rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className=" rounded-2xl p-4 lg:p-8 shadow-sm border border-gray-100">
                     <div className="mb-8">
                         <h3 className="text-2xl font-semibold  mb-2">Performance Metrics</h3>
                         <p className="text-gray-500 text-sm">Comparative analysis</p>
@@ -252,7 +252,7 @@ const RevenueOverview = () => {
             {/* Bottom Section */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Pie Chart */}
-                <div className="rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className="rounded-2xl p-4 lg:p-8 shadow-sm border border-gray-100">
                     <div className="mb-8">
                         <h3 className="text-2xl font-semibold  mb-2">Distribution</h3>
                         <p className="text-gray-500 text-sm">Revenue breakdown</p>
@@ -291,7 +291,7 @@ const RevenueOverview = () => {
                 </div>
 
                 {/* Summary Card */}
-                <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-8 text-white">
+                <div className="bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl p-4 lg:p-8 text-white">
                     <div className="flex justify-between items-center mb-8">
                         <h3 className="text-2xl font-semibold">Quick Summary</h3>
                         <div className="text-2xl opacity-80">
