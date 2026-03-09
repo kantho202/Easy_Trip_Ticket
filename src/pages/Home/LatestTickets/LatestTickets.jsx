@@ -18,9 +18,7 @@ import { LuCalendar, LuClock, LuMapPin, LuUsers } from 'react-icons/lu';
 
 const LatestTickets = () => {
     const axiosSecure = useAxiosSecure();
-
-    // State for managing current image index for each ticket
-    const [currentImageIndices, setCurrentImageIndices] = useState({});
+    const [imageIndices, setImageIndices] = useState({});
 
     const { data: homeTicket = [] } = useQuery({
         queryKey: ['homeTicket'],
@@ -30,38 +28,50 @@ const LatestTickets = () => {
         }
     });
 
-    // Initialize image indices when tickets are loaded
+    // Initialize image indices for all tickets
     useEffect(() => {
         if (homeTicket.length > 0) {
             const initialIndices = {};
             homeTicket.forEach(ticket => {
                 initialIndices[ticket._id] = 0;
             });
-            setCurrentImageIndices(initialIndices);
+            setImageIndices(initialIndices);
         }
     }, [homeTicket]);
 
-    // Auto-slide functionality for each ticket
+    // Auto-slide effect for each ticket
     useEffect(() => {
-        const intervals = {};
-
-        homeTicket.forEach(ticket => {
+        const intervals = homeTicket.map(ticket => {
             const images = ticket.images || [ticket.image];
             if (images.length > 1) {
-                intervals[ticket._id] = setInterval(() => {
-                    setCurrentImageIndices(prev => ({
+                return setInterval(() => {
+                    setImageIndices(prev => ({
                         ...prev,
-                        [ticket._id]: (prev[ticket._id] + 1) % images.length
+                        [ticket._id]: ((prev[ticket._id] || 0) + 1) % images.length
                     }));
-                }, 5000); // Change image every 5 seconds
+                }, 5000);
             }
-        });
+            return null;
+        }).filter(Boolean);
 
-        // Cleanup intervals on unmount
-        return () => {
-            Object.values(intervals).forEach(interval => clearInterval(interval));
-        };
+        return () => intervals.forEach(interval => clearInterval(interval));
     }, [homeTicket]);
+
+    const handlePrevImage = (e, ticketId, images) => {
+        e.preventDefault();
+        setImageIndices(prev => ({
+            ...prev,
+            [ticketId]: prev[ticketId] === 0 ? images.length - 1 : prev[ticketId] - 1
+        }));
+    };
+
+    const handleNextImage = (e, ticketId, images) => {
+        e.preventDefault();
+        setImageIndices(prev => ({
+            ...prev,
+            [ticketId]: (prev[ticketId] + 1) % images.length
+        }));
+    };
 
     const transportIcons = {
         Bus: FaBus,
@@ -102,7 +112,7 @@ const LatestTickets = () => {
                     {homeTicket.map((ticket, index) => {
                         const TransportIcon = transportIcons[ticket.transport] || FaBus;
                         const images = ticket.images || [ticket.image];
-                        const currentImageIndex = currentImageIndices[ticket._id] || 0;
+                        const currentImageIndex = imageIndices[ticket._id] || 0;
                         const currentImage = images[currentImageIndex] || ticket.image;
 
                         return (
@@ -116,6 +126,24 @@ const LatestTickets = () => {
                                             className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/60"></div>
+
+                                        {/* Navigation Arrows - Only show if multiple images */}
+                                        {images.length > 1 && (
+                                            <>
+                                                <button
+                                                    onClick={(e) => handlePrevImage(e, ticket._id, images)}
+                                                    className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all z-10 text-2xl font-bold"
+                                                >
+                                                    ‹
+                                                </button>
+                                                <button
+                                                    onClick={(e) => handleNextImage(e, ticket._id, images)}
+                                                    className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all z-10 text-2xl font-bold"
+                                                >
+                                                    ›
+                                                </button>
+                                            </>
+                                        )}
 
                                         {/* Price Tag */}
                                          <div className="absolute top-4 right-4 px-4 py-2 bg-white/95 text-orange-500 rounded-full font-bold text-lg backdrop-blur-md">
@@ -137,11 +165,6 @@ const LatestTickets = () => {
                                                 ))}
                                             </div>
                                         )}
-
-                                        {/* Status Badge */}
-                                        {/* <div className="absolute top-6 left-6 bg-green-500/90 text-white px-3 py-2 rounded-2xl text-xs font-semibold backdrop-blur-md border border-white/20">
-                                            Available
-                                        </div> */}
                                     </div>
 
                                     {/* Card Content */}

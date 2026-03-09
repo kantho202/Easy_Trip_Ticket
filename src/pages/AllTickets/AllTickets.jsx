@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useAxiosSecure from '../../hook/useAxiosecure';
 import { Link } from 'react-router';
 import { LuSearch } from "react-icons/lu";
@@ -26,6 +26,7 @@ const AllTickets = () => {
     const [transportType, setTransportType] = useState("");
     const [sort, setSort] = useState('price');
     const [order, setOrder] = useState("asc");
+    const [imageIndices, setImageIndices] = useState({});
     const itemsPerPage = 6;
     const skip = (currentPage - 1) * itemsPerPage;
 
@@ -37,6 +38,51 @@ const AllTickets = () => {
         },
         keepPreviousData: true,
     });
+
+    // Initialize image indices for all tickets
+    useEffect(() => {
+        if (tickets.length > 0) {
+            const initialIndices = {};
+            tickets.forEach(ticket => {
+                initialIndices[ticket._id] = 0;
+            });
+            setImageIndices(initialIndices);
+        }
+    }, [tickets]);
+
+    // Auto-slide effect for each ticket
+    useEffect(() => {
+        const intervals = tickets.map(ticket => {
+            const images = ticket.images || [ticket.image];
+            if (images.length > 1) {
+                return setInterval(() => {
+                    setImageIndices(prev => ({
+                        ...prev,
+                        [ticket._id]: ((prev[ticket._id] || 0) + 1) % images.length
+                    }));
+                }, 5000);
+            }
+            return null;
+        }).filter(Boolean);
+
+        return () => intervals.forEach(interval => clearInterval(interval));
+    }, [tickets]);
+
+    const handlePrevImage = (e, ticketId, images) => {
+        e.preventDefault();
+        setImageIndices(prev => ({
+            ...prev,
+            [ticketId]: prev[ticketId] === 0 ? images.length - 1 : prev[ticketId] - 1
+        }));
+    };
+
+    const handleNextImage = (e, ticketId, images) => {
+        e.preventDefault();
+        setImageIndices(prev => ({
+            ...prev,
+            [ticketId]: (prev[ticketId] + 1) % images.length
+        }));
+    };
 
     const transportIcons = {
         Bus: FaBus,
@@ -209,6 +255,9 @@ const AllTickets = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {tickets.map((ticket, index) => {
                             const TransportIcon = transportIcons[ticket.transport] || FaBus;
+                            const images = ticket.images || [ticket.image];
+                            const currentImageIndex = imageIndices[ticket._id] || 0;
+                            const currentImage = images[currentImageIndex] || ticket.image;
                             
                             return (
                                 <div key={ticket._id} data-aos="fade-up" data-aos-duration="800" data-aos-delay={index * 100}>
@@ -217,16 +266,50 @@ const AllTickets = () => {
                                         {/* Image Container */}
                                         <div className="relative h-72 overflow-hidden flex-shrink-0">
                                             <img
-                                                src={ticket.image}
+                                                src={currentImage}
                                                 alt={ticket.ticketTitle}
-                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
                                             />
                                             <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/60"></div>
+
+                                            {/* Navigation Arrows - Only show if multiple images */}
+                                            {images.length > 1 && (
+                                                <>
+                                                    <button
+                                                        onClick={(e) => handlePrevImage(e, ticket._id, images)}
+                                                        className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all z-10 text-2xl font-bold"
+                                                    >
+                                                        ‹
+                                                    </button>
+                                                    <button
+                                                        onClick={(e) => handleNextImage(e, ticket._id, images)}
+                                                        className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all z-10 text-2xl font-bold"
+                                                    >
+                                                        ›
+                                                    </button>
+                                                </>
+                                            )}
 
                                             {/* Price Tag */}
                                             <div className="absolute top-4 right-4 px-4 py-2 bg-white/95 text-orange-500 rounded-full font-bold text-lg backdrop-blur-md">
                                                 ${ticket.price}
                                             </div>
+
+                                            {/* Image Indicators */}
+                                            {images.length > 1 && (
+                                                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                                                    {images.map((_, imgIndex) => (
+                                                        <div
+                                                            key={imgIndex}
+                                                            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                                                imgIndex === currentImageIndex
+                                                                    ? 'bg-white scale-125'
+                                                                    : 'bg-white/50'
+                                                            }`}
+                                                        />
+                                                    ))}
+                                                </div>
+                                            )}
                                         </div>
 
                                         {/* Card Content */}
