@@ -48,7 +48,7 @@ const TicketingFeatures = () => {
     ];
 
     return (
-        <div className="py-16 px-4  md:py-12">
+        <div className="py-16 px-4 lg:px-14 md:py-12">
             <div className="max-w-7xl mx-auto">
                 <div className="text-center mb-12">
                     <h2 className="text-4xl md:text-3xl font-bold mb-3">
@@ -63,7 +63,7 @@ const TicketingFeatures = () => {
                     {features.map((feature, index) => (
                         <div 
                             key={index}
-                            className="p-8 rounded-2xl  text-center transition-all duration-300 border-2 border-transparent hover:bg-white hover:text-black hover:border-orange-500 hover:-translate-y-1  group"
+                            className="p-8  rounded-2xl  text-center transition-all duration-300 border-2 border-transparent hover:bg-white hover:text-black hover:border-orange-500 hover:-translate-y-1  group"
                         >
                             <div className={`w-18 h-18 ${feature.color} rounded-full flex items-center justify-center text-3xl mx-auto mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}>
                                 {feature.icon}

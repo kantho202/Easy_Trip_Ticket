@@ -88,10 +88,10 @@ const Contact = () => {
     ];
 
     return (
-        <div className="py-16 px-4 lg:px-4  min-h-screen">
+        <div className="py-16 px-0 lg:px-  min-h-screen">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
-                <div className="text-center mb-12">
+                <div className="text-center p-4 lg:p-0 mb-12">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                         Get In Touch
                     </h1>
@@ -105,7 +105,7 @@ const Contact = () => {
                     {contactInfo.map((info, index) => (
                         <div 
                             key={index}
-                            className=" p-6 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 text-center"
+                            className=" p- rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 text-center"
                         >
                             <div className={`w-16 h-16 ${info.color} rounded-full flex items-center justify-center text-2xl mx-auto mb-4 transition-all duration-300 ${info.hoverColor}`}>
                                 {info.icon}
@@ -125,7 +125,7 @@ const Contact = () => {
                 {/* Contact Form and Map Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Contact Form */}
-                    <div className="p-4 lg:p-8 rounded-2xl shadow-lg">
+                    <div className="p-4  rounded-2xl shadow-lg">
                         <h2 className="text-3xl font-bold  mb-6">
                             Send Us a Message
                         </h2>

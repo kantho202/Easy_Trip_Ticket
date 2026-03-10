@@ -5,7 +5,7 @@ import {
     FaGlobe,
     FaCheckCircle 
 } from 'react-icons/fa';
-import image from '../../../assets/Gray Modern Mood Boards .png'
+import image from '../../../assets/Green Modern Travel Poster.png'
 const AboutSection = () => {
     const achievements = [
         { icon: <FaUsers />, number: "10K+", label: "Happy Customers" },
@@ -24,18 +24,18 @@ const AboutSection = () => {
     ];
 
     return (
-        <div className="py-20 px-4  md:py-12">
+        <div className="py-20 px-4 lg:px-14  md:py-12">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center lg:gap-12">
                     {/* Left Side - Image & Stats */}
                     <div className="relative">
                         <div className="relative rounded-3xl overflow-hidden mb-8 shadow-2xl">
                             <img 
-                                src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&h=600&fit=crop" 
+                                src={image}
                                 alt="Online Ticket Booking"
                                 className="w-full h-96 md:h- object-cover"
                             />
-                            <div className="absolute bottom-5 right-5 bg-white p-6 rounded-2xl shadow-xl flex items-center gap-4 animate-float">
+                            <div className="absolute bottom-5 right-5 bg-gray-200 p-6 rounded-2xl shadow-xl flex items-center gap-4 animate-float">
                                 <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl flex items-center justify-center text-2xl">
                                     <FaRocket />
                                 </div>
