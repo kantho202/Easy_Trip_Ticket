@@ -29,33 +29,33 @@ const AboutSection = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center lg:gap-12">
                     {/* Left Side - Image & Stats */}
                     <div className="relative">
-                        <div className="relative rounded-3xl overflow-hidden mb-8 shadow-2xl">
+                        <div className="relative rounded-[10px] overflow-hidden mb-8 shadow-2xl">
                             <img 
                                 src={image}
                                 alt="Online Ticket Booking"
-                                className="w-full h-96 md:h- object-cover"
+                                className="w-full h-[300px] md:h-[400px] lg:h-96 object-cover"
                             />
-                            <div className="absolute bottom-5 right-5 bg-gray-200 p-6 rounded-2xl shadow-xl flex items-center gap-4 animate-float">
-                                <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl flex items-center justify-center text-2xl">
+                            <div className="absolute bottom-3 right-3 md:bottom-5 md:right-5 bg-gray-200 p-4 md:p-6 rounded-2xl shadow-xl flex items-center gap-3 md:gap-4 animate-float">
+                                <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-xl flex items-center justify-center text-xl md:text-2xl">
                                     <FaRocket />
                                 </div>
-                                <div className=''>
-                                    <div className="text-xl lg:text-2xl font-bold text-gray-700">20K+</div>
-                                    <div className="text-sm text-gray-700">Tickets Booked</div>
+                                <div>
+                                    <div className="text-lg md:text-xl lg:text-2xl font-bold text-gray-700">20K+</div>
+                                    <div className="text-xs md:text-sm text-gray-700">Tickets Booked</div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-4">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                             {achievements.map((item, index) => (
                                 <div 
                                     key={index}
-                                    className="border-gray-200 border-2 p-6 md:p-4 rounded-xl text-center transition-all duration-300  hover:shadow-lg hover:-translate-y-1"
+                                    className="border-gray-200 border-2 p-4 md:p-6 rounded-xl text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                                 >
-                                    <div className="text-3xl md:text-2xl flex justify-center text-orange-500 mb-2">
+                                    <div className="text-2xl md:text-3xl flex justify-center text-orange-500 mb-2">
                                         {item.icon}
                                     </div>
-                                    <div className="text-2xl md:text-xl font-bold  mb-1">
+                                    <div className="text-xl md:text-2xl font-bold mb-1">
                                         {item.number}
                                     </div>
                                     <div className="text-xs font-semibold text-gray-400">
@@ -68,35 +68,35 @@ const AboutSection = () => {
 
                     {/* Right Side - Content */}
                     <div>
-                        <div className="inline-block px-5 py-2 rounded-full text-xl font-semibold mb-6">
+                        <div className="inline-block px-5 py-2 bg-orange-100 text-orange-600 rounded-full text-sm md:text-base font-semibold mb-6">
                             About Us
                         </div>
-                        <h2 className="text-4xl md:text-3xl font-bold  mb-6 leading-tight ">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">
                             Your Trusted Partner for Online Ticket Booking
                         </h2>
-                        <p className="text-lg  leading-relaxed mb-6">
+                        <p className="text-base md:text-lg leading-relaxed mb-4 md:mb-6 text-gray-600">
                             We are a leading online ticket booking platform dedicated to making your travel 
                             planning seamless and hassle-free. With years of experience in the industry, 
                             we provide a reliable and user-friendly platform for booking tickets to various 
                             destinations.
                         </p>
-                        <p className="text-lg  leading-relaxed mb-6">
+                        <p className="text-base md:text-lg leading-relaxed mb-6 text-gray-600">
                             Our mission is to revolutionize the way people book tickets by offering a 
                             convenient, secure, and efficient booking experience. We partner with trusted 
                             service providers to ensure you get the best deals and quality service.
                         </p>
 
-                        <div className="my-8">
-                            <h3 className="text-2xl font-semibold  mb-6">
+                        <div className="my-6 md:my-8">
+                            <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">
                                 Why Choose Our Platform?
                             </h3>
-                            <div className="grid gap-4">
+                            <div className="grid gap-3 md:gap-4">
                                 {features.map((feature, index) => (
-                                    <div key={index} className="flex items-center gap-4">
-                                        <div className="text-green-500 text-xl flex-shrink-0">
+                                    <div key={index} className="flex items-center gap-3 md:gap-4">
+                                        <div className="text-green-500 text-lg md:text-xl flex-shrink-0">
                                             <FaCheckCircle />
                                         </div>
-                                        <span className="text-base ">
+                                        <span className="text-sm md:text-base text-gray-700">
                                             {feature}
                                         </span>
                                     </div>
@@ -104,19 +104,24 @@ const AboutSection = () => {
                             </div>
                         </div>
 
-                        <div className="flex gap-4 mt-8 flex-col sm:flex-row">
+                        <div className="flex gap-4 mt-6 md:mt-8 flex-col sm:flex-row">
                             <a 
-                                href="/all-tickets"
+                                href="/alltickets"
                                 className="inline-block px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 text-center"
                             >
                                 Book Now
                             </a>
-                            <a 
-                                href="/contact"
-                                className="inline-block px-6 py-3  text-orange-500 font-semibold border-2 border-orange-500 rounded-xl transition-all duration-300 hover:bg-orange-500 hover:text-white hover:-translate-y-1 text-center"
+                            <button 
+                                onClick={() => {
+                                    const contactSection = document.querySelector('#contact-section');
+                                    if (contactSection) {
+                                        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    }
+                                }}
+                                className="inline-block px-6 py-3 text-orange-500 font-semibold border-2 border-orange-500 rounded-xl transition-all duration-300 hover:bg-orange-500 hover:text-white hover:-translate-y-1 text-center cursor-pointer"
                             >
                                 Contact Us
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -127,7 +127,7 @@ const AllTickets = () => {
                 <div className="absolute inset-0 "></div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 lg:px-8 md:px-4 relative z-10" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000">
+            <div className="max-w-7xl mx-auto px-4 lg:px- md:px-4 relative z-10" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000">
                 {/* Header Section */}
                 <div className="text-center mb-12">
                     <h1 className="text-3xl lg:text-6xl md:text-4xl font-extrabold  mb-4 tracking-tight leading-tight">
