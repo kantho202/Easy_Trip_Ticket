@@ -414,6 +414,23 @@ const TicketDetails = () => {
                             </div>
                         </div>
 
+                        {/* Description Card */}
+                        {ticket.description && (
+                            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 md:p-8 border-2 border-blue-200 my-6">
+                                <h3 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center text-white">
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                    About This Journey
+                                </h3>
+                                <p className="text-gray-700 leading-relaxed text-base md:text-lg whitespace-pre-line">
+                                    {ticket.description}
+                                </p>
+                            </div>
+                        )}
+
                         {/* Perks Section */}
                         {ticket.perks?.length > 0 && (
                             <div className="bg-green-50 rounded-2xl my-5 p-6 border border-green-200">
@@ -466,18 +483,18 @@ const TicketDetails = () => {
 
                 {/* Enhanced Booking Modal */}
                 <dialog ref={ticketModalRef} className="modal modal-bottom sm:modal-middle">
-                    <div className="modal-box max-w-md bg-white rounded-3xl border-0 shadow-2xl">
+                    <div className="modal-box max-w-md rounded-3xl border-0 shadow-2xl">
                         <div className="text-center mb-6">
                             <div className="bg-orange-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                                 <FaTicketAlt className="text-orange-500 text-2xl" />
                             </div>
-                            <h3 className="font-bold text-2xl text-gray-800 mb-2">Complete Your Booking</h3>
-                            <p className="text-gray-600">Select the number of tickets you want to book</p>
+                            <h3 className="font-bold text-2xl  mb-2">Complete Your Booking</h3>
+                            <p className="text-gray-400">Select the number of tickets you want to book</p>
                         </div>
 
                         <form onSubmit={handleSubmit(handleTicketSubmit)} className="space-y-6">
                             <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                <label className="block text-sm font-semibold  mb-2">
                                     Number of Tickets
                                 </label>
                                 <input
@@ -506,11 +523,11 @@ const TicketDetails = () => {
                             {/* Booking Summary */}
                             <div className=" rounded-xl p-4 space-y-2">
                                 <div className="flex justify-between text-sm">
-                                    <span className="text-gray-600">Price per ticket:</span>
+                                    <span className="">Price per ticket:</span>
                                     <span className="font-semibold">৳{ticket.price}</span>
                                 </div>
                                 <div className="flex justify-between text-sm">
-                                    <span className="text-gray-600">Available tickets:</span>
+                                    <span className="">Available tickets:</span>
                                     <span className="font-semibold">{ticket.ticketQuantity}</span>
                                 </div>
                             </div>
