@@ -5,6 +5,7 @@ import {
     FaGlobe,
     FaCheckCircle 
 } from 'react-icons/fa';
+import { Link } from 'react-router';
 import image from '../../../assets/Green Modern Travel Poster.png'
 const AboutSection = () => {
     const achievements = [
@@ -105,23 +106,18 @@ const AboutSection = () => {
                         </div>
 
                         <div className="flex gap-4 mt-6 md:mt-8 flex-col sm:flex-row">
-                            <a 
-                                href="/alltickets"
+                            <Link 
+                                to="/alltickets"
                                 className="inline-block px-6 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 text-center"
                             >
                                 Book Now
-                            </a>
-                            <button 
-                                onClick={() => {
-                                    const contactSection = document.querySelector('#contact-section');
-                                    if (contactSection) {
-                                        contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                    }
-                                }}
-                                className="inline-block px-6 py-3 text-orange-500 font-semibold border-2 border-orange-500 rounded-xl transition-all duration-300 hover:bg-orange-500 hover:text-white hover:-translate-y-1 text-center cursor-pointer"
+                            </Link>
+                            <Link 
+                                to="/contact"
+                                className="inline-block px-6 py-3 text-orange-500 font-semibold border-2 border-orange-500 rounded-xl transition-all duration-300 hover:bg-orange-500 hover:text-white hover:-translate-y-1 text-center"
                             >
                                 Contact Us
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

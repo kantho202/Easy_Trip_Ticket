@@ -113,7 +113,7 @@ const Advertisement = () => {
                         <FaStar className="text-yellow-500" />
                         Featured Destinations
                     </div>
-                    <h1 className="text-4xl md:text-3xl font-bold mb-4 tracking-tight leading-tight">
+                    <h1 className="text-4xl   md:text-3xl font-bold mb-4 tracking-tight leading-tight">
                         Premium Travel Experiences
                     </h1>
                     <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">

@@ -229,7 +229,7 @@ const TicketDetails = () => {
                         {/* Image Gallery Card */}
                         <div className=" rounded-3xl shadow-2xl overflow-hidden border border-gray-100" data-aos="fade-up">
                             {/* Hero Image Section with Gallery */}
-                            <div className="relative h-96 overflow-hidden group">
+                            <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden group">
                         <img
                             src={ticketImages[currentImageIndex]}
                             alt={`${ticket.ticketTitle} - Image ${currentImageIndex + 1}`}
@@ -504,7 +504,7 @@ const TicketDetails = () => {
                             </div>
 
                             {/* Booking Summary */}
-                            <div className="bg-gray-50 rounded-xl p-4 space-y-2">
+                            <div className=" rounded-xl p-4 space-y-2">
                                 <div className="flex justify-between text-sm">
                                     <span className="text-gray-600">Price per ticket:</span>
                                     <span className="font-semibold">৳{ticket.price}</span>
