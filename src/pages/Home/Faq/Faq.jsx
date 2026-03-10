@@ -47,14 +47,14 @@ const Faq = () => {
                     {faqs.map((faq, index) => (
                         <div 
                             key={index}
-                            className="collapse collapse-arrow bg-white border-2 border-gray-200 rounded-xl hover:border-orange-500 transition-all duration-300 shadow-sm hover:shadow-md"
+                            className="collapse collapse-arrow  border-2 border-gray-200 rounded-xl hover:border-orange-500 transition-all duration-300 shadow-sm hover:shadow-md"
                         >
                             <input type="radio" name="faq-accordion" defaultChecked={index === 0} />
-                            <div className="collapse-title text-lg font-semibold text-gray-800 pr-12">
+                            <div className="collapse-title text-lg font-semibold  pr-12">
                                 {faq.question}
                             </div>
                             <div className="collapse-content">
-                                <p className="text-base text-gray-600 leading-relaxed pt-2">
+                                <p className="text-base text-gray-400 leading-relaxed pt-2">
                                     {faq.answer}
                                 </p>
                             </div>
