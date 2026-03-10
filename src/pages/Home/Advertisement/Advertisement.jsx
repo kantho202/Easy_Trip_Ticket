@@ -113,10 +113,10 @@ const Advertisement = () => {
                         <FaStar className="text-yellow-500" />
                         Featured Destinations
                     </div>
-                    <h1 className="text-4xl   md:text-3xl font-bold mb-4 tracking-tight leading-tight">
+                    <h1 className="text-4xl nunito-sans   md:text-3xl font-bold mb-4 tracking-tight leading-tight">
                         Premium Travel Experiences
                     </h1>
-                    <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-lg text-gray-600 max-w-3xl inter mx-auto leading-relaxed">
                         Discover handpicked destinations and exclusive travel deals curated just for you
                     </p>
                 </div>
@@ -189,15 +189,15 @@ const Advertisement = () => {
 
                                     {/* Card Content */}
                                     <div className="p-4 lg:p-8">
-                                        <h3 className="text-2xl font-bold  mb-4">{ticket.ticketTitle}</h3>
+                                        <h3 className="text-2xl font-bold nunito-sans   mb-4">{ticket.ticketTitle}</h3>
 
                                         <div className="flex items-center gap-4 mb-6 px-4 py-4  rounded-xl">
-                                            <div className="flex items-center gap-2 font-semibold ">
+                                            <div className="flex items-center inter gap-2 font-semibold ">
                                                 <LuMapPin className="text-orange-500" />
                                                 <span>{ticket.from}</span>
                                             </div>
                                             <div className="text-orange-500 font-bold text-xl">→ </div>
-                                            <div className="flex items-center gap-2 font-semibold ">
+                                            <div className="flex inter items-center gap-2 font-semibold ">
                                                 <LuMapPin className="text-orange-500" />
                                                 <span>{ticket.to}</span>
                                             </div>
@@ -257,8 +257,8 @@ const Advertisement = () => {
                                                 {ticket.name?.charAt(0)?.toUpperCase() || 'T'}
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <div className="text-xs  font-semibold uppercase tracking-wide mb-1">Organized by</div>
-                                                <div className="text-sm text-gray-500 font-semibold truncate">
+                                                <div className="text-xs  font-semibold uppercase tracking-wide inter mb-1">Organized by</div>
+                                                <div className="text-sm text-gray-500 font-semibold inter truncate">
                                                     {ticket.name?.length > 15
                                                         ? ticket.name.slice(0, 15) + '...'
                                                         : ticket.name || 'Travel Agent'
@@ -268,7 +268,7 @@ const Advertisement = () => {
                                         </div>
                                         {ticket.perks && ticket.perks.length > 0 && (
                                             <div className="mb-6">
-                                                <h4 className="text-sm font-semibold  mb-3">Included Perks</h4>
+                                                <h4 className="text-sm font-semibold inter  mb-3">Included Perks</h4>
                                                 <div className="flex flex-wrap gap-2">
                                                     {ticket.perks.map((perk, index) => {
                                                         const PerkIcon = perks.find(p => p.name === perk)?.icon || FaWifi;

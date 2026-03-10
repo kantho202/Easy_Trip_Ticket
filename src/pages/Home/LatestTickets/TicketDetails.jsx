@@ -227,7 +227,7 @@ const TicketDetails = () => {
                 {/* Main Ticket Card */}
                 <div className=" rounded-3xl shadow-2xl overflow-hidden border border-gray-100" data-aos="fade-up" data-aos-delay="200">
                         {/* Image Gallery Card */}
-                        <div className=" rounded-3xl shadow-2xl overflow-hidden border border-gray-100" data-aos="fade-up">
+                        <div className=" rounded-3xl shadow-2xl overflow-hidden " data-aos="fade-up">
                             {/* Hero Image Section with Gallery */}
                             <div className="relative h-[400px] md:h-[500px] lg:h-[600px] overflow-hidden group">
                         <img
@@ -334,7 +334,7 @@ const TicketDetails = () => {
                         </div>
 
                         {/* Route Card */}
-                        <div className=" rounded-3xl shadow-xl p-8 border border-gray-100" data-aos="fade-up" data-aos-delay="100">
+                        <div className=" rounded-3xl shadow-xl p-8 " data-aos="fade-up" data-aos-delay="100">
                             <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
                                 <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center text-white">
                                     <FaRoute />
