@@ -8,6 +8,7 @@ import BookingProcess from '../BookingProcess/BookingProcess';
 import TicketingFeatures from '../TicketingFeatures/TicketingFeatures';
 import AboutSection from '../AboutSection/AboutSection';
 import Contact from '../../Contact/Contact';
+import Faq from '../Faq/Faq';
 
 const Home = () => {
     return (
@@ -18,8 +19,9 @@ const Home = () => {
             <BookingProcess></BookingProcess>
             <LatestTickets></LatestTickets>
             <TicketingFeatures></TicketingFeatures>
-            <PopularRoutes></PopularRoutes>
-            <WhyChooseUs></WhyChooseUs>
+            {/* <PopularRoutes></PopularRoutes> */}
+            {/* <WhyChooseUs></WhyChooseUs> */}
+            <Faq/>
             <Contact></Contact>
         </div>
     );

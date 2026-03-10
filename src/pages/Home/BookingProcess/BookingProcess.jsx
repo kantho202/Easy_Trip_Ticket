@@ -29,22 +29,22 @@ const BookingProcess = () => {
     ];
 
     return (
-        <div className="py-16 px-4  md:py-12">
+        <div className="py-20 px-4 lg:px-14 md:py-12">
             <div className="max-w-7xl mx-auto">
-                <div className="text-center mb-12">
-                    <h2 className="text-4xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
+                <div className="text-center mb-16 md:mb-12">
+                    <h2 className="text-4xl md:text-3xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
                         How Online Ticket Booking Works
                     </h2>
-                    <p className="text-lg ">
+                    <p className="text-lg text-gray-600">
                         Book your tickets in 4 simple steps
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12 relative">
+                <div className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-8 mb-12 relative">
                     {steps.map((step, index) => (
                         <div 
                             key={index}
-                            className="p-4 lg:p-8 rounded-2xl text-center shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative"
+                            className="p-4 lg:p-8 rounded-2xl hover:bg-gray-300 hover:text-black hover:border-primary border-2 border-gray-200 text-center shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl relative"
                         >
                             <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg">
                                 {index + 1}

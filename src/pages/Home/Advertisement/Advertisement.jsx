@@ -100,23 +100,23 @@ const Advertisement = () => {
     }
 
     return (
-        <div className="min-h-screen py-24 relative overflow-hidden">
+        <div className="py-20 px-4 lg:px-14 md:py-12 relative overflow-hidden">
             {/* Background Pattern */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-0 left-0 right-0 bottom-0 bg-gradient-radial from-white/10 via-transparent to-transparent"></div>
             </div>
 
-            <div className="max-w-7xl mx-auto px-4 md:px-4 relative z-10" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="800">
+            <div className="max-w-7xl mx-auto relative z-10" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="800">
                 {/* Header Section */}
-                <div className="text-center mb-20 md:mb-12">
-                    <div className="inline-flex items-center gap-2 px-6 py-3  backdrop-blur-md  rounded-full text-sm font-semibold mb-8 border border-white/30">
-                        <FaStar className="text-yellow-400" />
+                <div className="text-center mb-16 md:mb-12">
+                    <div className="inline-flex items-center gap-2 px-6 py-3 backdrop-blur-md rounded-full text-sm font-semibold mb-6 border border-orange-200 bg-orange-50 text-orange-600">
+                        <FaStar className="text-yellow-500" />
                         Featured Destinations
                     </div>
-                    <h1 className="text-2xl md:text-4xl sm:text-3xl font-extrabold  mb-6 tracking-tight leading-tight">
+                    <h1 className="text-4xl md:text-3xl font-bold mb-4 tracking-tight leading-tight">
                         Premium Travel Experiences
                     </h1>
-                    <p className="text-[17px] md:text-lg text-gray-500 max-w-3xl mx-auto leading-relaxed font-light">
+                    <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
                         Discover handpicked destinations and exclusive travel deals curated just for you
                     </p>
                 </div>
@@ -131,9 +131,9 @@ const Advertisement = () => {
 
                         return (
                             <div key={ticket._id} data-aos="fade-up" data-aos-duration="800" data-aos-delay={index * 100}>
-                                <div className=" rounded-xl overflow-hidden shadow-md border border-gray-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col h-full group">
+                                <div className=" rounded-xl overflow-hidden shadow-md border-3 hover:border-primary hover:border-3 border-gray-100 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col h-full group">
                                     {/* Image Container */}
-                                    <div className="relative h-52 overflow-hidden">
+                                    <div className="relative h-52  overflow-hidden">
                                         <img
                                             src={currentImage}
                                             alt={ticket.ticketTitle}

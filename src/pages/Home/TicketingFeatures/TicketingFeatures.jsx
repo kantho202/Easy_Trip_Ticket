@@ -63,7 +63,7 @@ const TicketingFeatures = () => {
                     {features.map((feature, index) => (
                         <div 
                             key={index}
-                            className="p-8  rounded-2xl  text-center transition-all duration-300 border-2 border-transparent hover:bg-white hover:text-black hover:border-orange-500 hover:-translate-y-1  group"
+                            className="p-8  rounded-2xl  text-center transition-all duration-300 border-2 border-gray-200  hover:bg-gray-300 hover:text-black hover:border-orange-500 hover:-translate-y-1  group"
                         >
                             <div className={`w-18 h-18 ${feature.color} rounded-full flex items-center justify-center text-3xl mx-auto mb-6 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6`}>
                                 {feature.icon}
@@ -78,7 +78,7 @@ const TicketingFeatures = () => {
                     ))}
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 p-4 lg:p-12 md:p-8 rounded-3xl border-2 border-primary
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 p-4 lg:p-12 md:p-8 rounded-3xl border-2 border-gray-200 hover:border-primary
                  border-gray-200 shadow-xl">
                     <div className="text-center ">
                         <div className="text-4xl md:text-3xl font-bold mb-2">

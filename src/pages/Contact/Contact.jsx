@@ -105,7 +105,7 @@ const Contact = () => {
                     {contactInfo.map((info, index) => (
                         <div 
                             key={index}
-                            className=" p- rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 text-center"
+                            className=" border-2 border-gray-200 p-5 hover:border-primary hover:bg-gray-300 text-black rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 text-center"
                         >
                             <div className={`w-16 h-16 ${info.color} rounded-full flex items-center justify-center text-2xl mx-auto mb-4 transition-all duration-300 ${info.hoverColor}`}>
                                 {info.icon}
