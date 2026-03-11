@@ -91,7 +91,7 @@ const Navbar = () => {
             </div>
 
             {/* Logo - Center on Mobile, Center on Desktop */}
-            <div className="navbar-center">
+            <div className="navbar-center mx-14">
                 <Logo></Logo>
             </div>
 
@@ -99,7 +99,7 @@ const Navbar = () => {
             <div className="navbar-end space-x-0 lg:space-x-2.5 flex items-center">
                 {
                     user ?
-                        <div className="flex gap-2 mr-4">
+                        <div className="flex gap-2 mr-2 lg:mr-4">
                             <div className="dropdown dropdown-end tooltip tooltip-bottom"
                                 data-tip={user?.displayName || user}>
                                 <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
