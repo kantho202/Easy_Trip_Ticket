@@ -91,7 +91,7 @@ const Navbar = () => {
             </div>
 
             {/* Logo - Center on Mobile, Center on Desktop */}
-            <div className="navbar-center mx-14">
+            <div className="navbar-center ">
                 <Logo></Logo>
             </div>
 
