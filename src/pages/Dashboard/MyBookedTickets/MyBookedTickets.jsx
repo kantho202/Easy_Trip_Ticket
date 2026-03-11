@@ -32,6 +32,7 @@ import { LuCalendar, LuClock, LuMapPin, LuUsers } from 'react-icons/lu';
 const MyBookedTickets = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const [imageIndices, setImageIndices] = React.useState({});
 
     const { data: bookings = [], isLoading } = useQuery({
         queryKey: ['bookings', user?.email],
@@ -40,6 +41,51 @@ const MyBookedTickets = () => {
             return res.data;
         }
     });
+
+    // Initialize image indices for all bookings
+    React.useEffect(() => {
+        if (bookings.length > 0) {
+            const initialIndices = {};
+            bookings.forEach(booking => {
+                initialIndices[booking._id] = 0;
+            });
+            setImageIndices(initialIndices);
+        }
+    }, [bookings]);
+
+    // Auto-slide effect for each booking
+    React.useEffect(() => {
+        const intervals = bookings.map(booking => {
+            const images = booking.images || [booking.image];
+            if (images.length > 1) {
+                return setInterval(() => {
+                    setImageIndices(prev => ({
+                        ...prev,
+                        [booking._id]: ((prev[booking._id] || 0) + 1) % images.length
+                    }));
+                }, 5000);
+            }
+            return null;
+        }).filter(Boolean);
+
+        return () => intervals.forEach(interval => clearInterval(interval));
+    }, [bookings]);
+
+    const handlePrevImage = (e, bookingId, images) => {
+        e.preventDefault();
+        setImageIndices(prev => ({
+            ...prev,
+            [bookingId]: prev[bookingId] === 0 ? images.length - 1 : prev[bookingId] - 1
+        }));
+    };
+
+    const handleNextImage = (e, bookingId, images) => {
+        e.preventDefault();
+        setImageIndices(prev => ({
+            ...prev,
+            [bookingId]: (prev[bookingId] + 1) % images.length
+        }));
+    };
 
     const transportIcons = {
         Bus: FaBus,
@@ -213,6 +259,9 @@ const MyBookedTickets = () => {
                         const isReject = book.status === "rejected";
                         const statusInfo = getStatusInfo(book.status, book.paymentStatus);
                         const TransportIcon = transportIcons[book.transport] || FaBus;
+                        const images = book.images || [book.image];
+                        const currentImageIndex = imageIndices[book._id] || 0;
+                        const currentImage = images[currentImageIndex] || book.image;
 
                         return (
                             <div
@@ -226,25 +275,56 @@ const MyBookedTickets = () => {
                                     {/* Image Container */}
                                     <div className="relative h-64 overflow-hidden flex-shrink-0">
                                         <img
-                                            src={book.image}
+                                            src={currentImage}
                                             alt={book.ticket_title}
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/60"></div>
 
+                                        {/* Navigation Arrows - Only show if multiple images */}
+                                        {images.length > 1 && (
+                                            <>
+                                                <button
+                                                    onClick={(e) => handlePrevImage(e, book._id, images)}
+                                                    className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all z-10 text-lg font-bold"
+                                                >
+                                                    ‹
+                                                </button>
+                                                <button
+                                                    onClick={(e) => handleNextImage(e, book._id, images)}
+                                                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-black/60 hover:bg-black/80 text-white rounded-full flex items-center justify-center transition-all z-10 text-lg font-bold"
+                                                >
+                                                    ›
+                                                </button>
+                                            </>
+                                        )}
+
                                         {/* Price Tag */}
                                         <div className="absolute top-4 right-4 px-4 py-2 bg-white/95 text-orange-500 rounded-full font-bold text-lg backdrop-blur-md">
                                             ${book.total_price}
                                         </div>
-                                        {/* <div className="absolute top-4 right-4 px-4 py-2 bg-white/95 text-orange-500 rounded-full font-bold text-lg backdrop-blur-md">
-                                            ৳{book.total_price}
-                                        </div> */}
 
                                         {/* Status Badge */}
                                         <div className={`absolute top-4 left-4 ${statusInfo.bg} ${statusInfo.color} px-3 py-2 rounded-2xl text-xs font-semibold backdrop-blur-md border border-white/20 flex items-center gap-2`}>
                                             <statusInfo.icon size={12} />
                                             {statusInfo.text}
                                         </div>
+
+                                        {/* Image Indicators */}
+                                        {images.length > 1 && (
+                                            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
+                                                {images.map((_, imgIndex) => (
+                                                    <div
+                                                        key={imgIndex}
+                                                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                                            imgIndex === currentImageIndex
+                                                                ? 'bg-white scale-125'
+                                                                : 'bg-white/50'
+                                                        }`}
+                                                    />
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
 
                                     {/* Card Content */}

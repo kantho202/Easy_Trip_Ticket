@@ -130,7 +130,7 @@ const AllTickets = () => {
             <div className="max-w-7xl mx-auto px-4 lg:px- md:px-4 relative z-10" data-aos="fade-up" data-aos-easing="linear" data-aos-duration="1000">
                 {/* Header Section */}
                 <div className="text-center mb-12">
-                    <h1 className="text-3xl lg:text-6xl md:text-4xl font-extrabold  mb-4 tracking-tight leading-tight">
+                    <h1 className="text-3xl lg:text-4xl md:text-4xl font-extrabold  mb-4 tracking-tight leading-tight">
                         All Available Tickets
                     </h1>
                     <p className="text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
