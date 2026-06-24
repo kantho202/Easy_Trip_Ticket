@@ -20,7 +20,7 @@ const LatestTickets = () => {
     const axiosSecure = useAxiosSecure();
     const [imageIndices, setImageIndices] = useState({});
 
-    const { data: homeTicket = [] } = useQuery({
+    const { data: homeTicket = [], isLoading } = useQuery({
         queryKey: ['homeTicket'],
         queryFn: async () => {
             const res = await axiosSecure.get('/tickets?status=approved&limit=6');
@@ -106,7 +106,51 @@ const LatestTickets = () => {
                     </p>
                 </div>
 
-                {/* Tickets Grid */}
+                {/* Skeleton Loading */}
+                {isLoading && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-6">
+                        {[...Array(6)].map((_, i) => (
+                            <div key={i} className="rounded-xl overflow-hidden shadow-md border-3 border-gray-100 flex flex-col">
+                                {/* Image skeleton */}
+                                <div className="h-52 bg-gray-200 animate-pulse"></div>
+                                {/* Content skeleton */}
+                                <div className="p-6 flex flex-col gap-4">
+                                    {/* Title */}
+                                    <div className="h-6 bg-gray-200 rounded-lg animate-pulse w-3/4"></div>
+                                    {/* Route */}
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-4 bg-gray-200 rounded animate-pulse w-1/3"></div>
+                                        <div className="h-4 bg-gray-200 rounded animate-pulse w-4"></div>
+                                        <div className="h-4 bg-gray-200 rounded animate-pulse w-1/3"></div>
+                                    </div>
+                                    {/* Grid info */}
+                                    <div className="grid grid-cols-2 gap-4">
+                                        {[...Array(4)].map((_, j) => (
+                                            <div key={j} className="flex items-center gap-3">
+                                                <div className="w-10 h-10 bg-gray-200 rounded-lg animate-pulse flex-shrink-0"></div>
+                                                <div className="flex-1 flex flex-col gap-1">
+                                                    <div className="h-3 bg-gray-200 rounded animate-pulse w-2/3"></div>
+                                                    <div className="h-3 bg-gray-200 rounded animate-pulse w-1/2"></div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {/* Organizer */}
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-gray-200 rounded-full animate-pulse flex-shrink-0"></div>
+                                        <div className="flex-1 flex flex-col gap-1">
+                                            <div className="h-3 bg-gray-200 rounded animate-pulse w-1/3"></div>
+                                            <div className="h-3 bg-gray-200 rounded animate-pulse w-1/2"></div>
+                                        </div>
+                                    </div>
+                                    {/* Button */}
+                                    <div className="h-12 bg-gray-200 rounded-2xl animate-pulse mt-2"></div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+                {!isLoading && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-6 items-stretch">
                     {homeTicket.map((ticket, index) => {
                         const TransportIcon = transportIcons[ticket.transport] || FaBus;
@@ -270,9 +314,10 @@ const LatestTickets = () => {
                         );
                     })}
                 </div>
+                )}
 
                 {/* Empty State */}
-                {homeTicket.length === 0 && (
+                {!isLoading && homeTicket.length === 0 && (
                     <div className="text-center p-16 md:p-8 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 mt-8">
                         <div className="text-6xl mb-6">🎫</div>
                         <h3 className="text-2xl font-semibold text-white mb-2">No Tickets Available</h3>

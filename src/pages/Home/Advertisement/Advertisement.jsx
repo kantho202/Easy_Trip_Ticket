@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import useAxiosSecure from '../../../hook/useAxiosecure';
 import { Link } from 'react-router';
-import Loader from '../../../components/Loading/Loading';
 import {
     FaBus,
     FaTrain,
@@ -96,7 +95,60 @@ const Advertisement = () => {
     ];
 
     if (isLoading) {
-        return <Loader />;
+        return (
+            <div className="py-20 px-4 lg:px-14 md:py-12">
+                <div className="max-w-7xl mx-auto">
+                    {/* Header skeleton */}
+                    <div className="text-center mb-16 md:mb-12">
+                        <div className="h-8 bg-gray-200 rounded-full animate-pulse w-48 mx-auto mb-6"></div>
+                        <div className="h-10 bg-gray-200 rounded-lg animate-pulse w-96 mx-auto mb-4"></div>
+                        <div className="h-5 bg-gray-200 rounded animate-pulse w-2/3 mx-auto"></div>
+                    </div>
+                    {/* Cards skeleton */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {[...Array(3)].map((_, i) => (
+                            <div key={i} className="rounded-xl overflow-hidden shadow-md border-3 border-gray-100 flex flex-col">
+                                {/* Image skeleton */}
+                                <div className="h-52 bg-gray-200 animate-pulse"></div>
+                                {/* Content skeleton */}
+                                <div className="p-6 flex flex-col gap-4">
+                                    {/* Title */}
+                                    <div className="h-6 bg-gray-200 rounded-lg animate-pulse w-3/4"></div>
+                                    {/* Route */}
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-4 bg-gray-200 rounded animate-pulse w-1/3"></div>
+                                        <div className="h-4 bg-gray-200 rounded animate-pulse w-4"></div>
+                                        <div className="h-4 bg-gray-200 rounded animate-pulse w-1/3"></div>
+                                    </div>
+                                    {/* Grid info */}
+                                    <div className="grid grid-cols-2 gap-4">
+                                        {[...Array(4)].map((_, j) => (
+                                            <div key={j} className="flex items-center gap-3">
+                                                <div className="w-10 h-10 bg-gray-200 rounded-lg animate-pulse flex-shrink-0"></div>
+                                                <div className="flex-1 flex flex-col gap-1">
+                                                    <div className="h-3 bg-gray-200 rounded animate-pulse w-2/3"></div>
+                                                    <div className="h-3 bg-gray-200 rounded animate-pulse w-1/2"></div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {/* Organizer */}
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-gray-200 rounded-full animate-pulse flex-shrink-0"></div>
+                                        <div className="flex-1 flex flex-col gap-1">
+                                            <div className="h-3 bg-gray-200 rounded animate-pulse w-1/3"></div>
+                                            <div className="h-3 bg-gray-200 rounded animate-pulse w-1/2"></div>
+                                        </div>
+                                    </div>
+                                    {/* Button */}
+                                    <div className="h-12 bg-gray-200 rounded-2xl animate-pulse mt-2"></div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return (
@@ -121,7 +173,46 @@ const Advertisement = () => {
                     </p>
                 </div>
 
+                {/* Cards Skeleton */}
+                {isLoading && (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {[...Array(3)].map((_, i) => (
+                            <div key={i} className="rounded-xl overflow-hidden shadow-md border-3 border-gray-100 flex flex-col">
+                                <div className="h-52 bg-gray-200 animate-pulse"></div>
+                                <div className="p-6 flex flex-col gap-4">
+                                    <div className="h-6 bg-gray-200 rounded-lg animate-pulse w-3/4"></div>
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-4 bg-gray-200 rounded animate-pulse w-1/3"></div>
+                                        <div className="h-4 bg-gray-200 rounded animate-pulse w-4"></div>
+                                        <div className="h-4 bg-gray-200 rounded animate-pulse w-1/3"></div>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        {[...Array(4)].map((_, j) => (
+                                            <div key={j} className="flex items-center gap-3">
+                                                <div className="w-10 h-10 bg-gray-200 rounded-lg animate-pulse flex-shrink-0"></div>
+                                                <div className="flex-1 flex flex-col gap-1">
+                                                    <div className="h-3 bg-gray-200 rounded animate-pulse w-2/3"></div>
+                                                    <div className="h-3 bg-gray-200 rounded animate-pulse w-1/2"></div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-10 h-10 bg-gray-200 rounded-full animate-pulse flex-shrink-0"></div>
+                                        <div className="flex-1 flex flex-col gap-1">
+                                            <div className="h-3 bg-gray-200 rounded animate-pulse w-1/3"></div>
+                                            <div className="h-3 bg-gray-200 rounded animate-pulse w-1/2"></div>
+                                        </div>
+                                    </div>
+                                    <div className="h-12 bg-gray-200 rounded-2xl animate-pulse mt-2"></div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
                 {/* Tickets Grid */}
+                {!isLoading && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {advertise.map((ticket, index) => {
                         const TransportIcon = transportIcons[ticket.transport] || FaBus;
@@ -285,9 +376,10 @@ const Advertisement = () => {
                         );
                     })}
                 </div>
+                )}
 
                 {/* Empty State */}
-                {advertise.length === 0 && (
+                {!isLoading && advertise.length === 0 && (
                     <div className="text-center p-16 md:p-8 bg-white/10 backdrop-blur-md rounded-3xl border border-white/20 mt-8">
                         <div className="text-6xl mb-6">🎫</div>
                         <h3 className="text-2xl font-semibold text-gray-800 mb-2">No Featured Tickets Available</h3>
